@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.181.128:3306/user?useSSL=false # 驱动类型：协议：//ip地址：端口号/数据库名称?参数（不使用ssl连接）
+    username: root
+    password: 12345
+    driver-class-name: com.mysql.cj.jdbc.Driver #jdbc驱动名称
