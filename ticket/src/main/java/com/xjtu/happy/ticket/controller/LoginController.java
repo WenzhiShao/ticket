@@ -20,13 +20,13 @@ public class LoginController {
     @Resource
     private UserMapper userMapper;
 
-   @RequestMapping({"/","/index.html","/index"})
+    @RequestMapping({"/","/index.html","/index"})
     public String Index(){
         return "login";
     }
     @GetMapping("/login")
     public String login(){
-       return "login";
+        return "login";
 
     }    @RequestMapping(value = "/user/login")
     public String addlogin(HttpServletRequest request , Model model, Map<String,Object> map,HttpSession session){
@@ -42,9 +42,9 @@ public class LoginController {
             if(player==null){
                 model.addAttribute("user",userName);
                 map.put("msg","登录成功");
-                return "firstpage";}
+                return "redirect:/firstpage.html";}
             else {
-                return "admin";
+                return "redirect:/admin.html";
             }
         }
         else{
