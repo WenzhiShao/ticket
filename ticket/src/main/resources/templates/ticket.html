@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="../static/css/mystyle.css">
     <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
             crossorigin="anonymous"></script>
@@ -36,51 +37,54 @@
 <div class="container mt-1">
     <table class="table table-hover table-bordered">
         <thead class="bg-primary text-white">
-            <tr>
-                <th class="tcel text-center">车次</th>
-                <th class="tcel text-center">
-                    <div class="flex-column">
-                        <div>出发地</div>
-                        <div>目的地</div>
-                    </div>
-                </th>
-                <th class="tcel text-center">
-                    <div class="flex-column">
-                        <div>出发时间</div>
-                        <div>到达时间</div>
-                    </div>
-                </th>
-                <th class="text-center tcel" >历时</th>
-                <th class="text-center tcel" >特等座</th>
-                <th class="text-center tcel" >一等座</th>
-                <th class="text-center tcel" >二等座</th>
-                <th class="text-center tcel" >其他</th>
-                <th class="text-center tcel" >预定</th>
-            </tr>
+        <tr>
+            <th class="tcel text-center">车次</th>
+            <th class="tcel text-center">
+                <div class="flex-column">
+                    <div>出发地</div>
+                    <div>目的地</div>
+                </div>
+            </th>
+            <th class="tcel text-center">
+                <div class="flex-column">
+                    <div>出发时间</div>
+                    <div>到达时间</div>
+                </div>
+            </th>
+            <th class="text-center tcel" >历时</th>
+            <th class="text-center tcel" >特等座</th>
+            <th class="text-center tcel" >一等座</th>
+            <th class="text-center tcel" >二等座</th>
+            <th class="text-center tcel" >其他</th>
+            <th class="text-center tcel" >预定</th>
+        </tr>
         </thead>
 
         <tbody>
-            <tr>
-                <td class="text-center tcel">G1234</td>
-                <td class="tcel text-center">
-                    <div class="flex-column">
-                        <div>西安</div>
-                        <div>汉中</div>
-                    </div>
-                </td>
-                <td class="tcel text-center">
-                    <div class="flex-column">
-                        <div>17:00</div>
-                        <div>20:00</div>
-                    </div>
-                </td>
-                <td class="tcel text-center">3小时</td>
-                <td class="tcel text-center">-</td>
-                <td class="tcel text-center">-</td>
-                <td class="tcel text-center">20</td>
-                <td class="tcel text-center">-</td>
-                <td class="tcel text-center"><a class="btn btn-primary" href="#">预定</a></td>
-            </tr>
+        <tr th:each="tk:${tickets}">
+            <td class="text-center tcel" th:text="${tk.getTrainNum()}"></td>
+            <td class="tcel text-center">
+                <div class="flex-column">
+                    <div th:text="${tk.getStartStationName()}"></div>
+                    <div th:text="${tk.getEndStationName()}"></div>
+                </div>
+            </td>
+            <td class="tcel text-center">
+                <div class="flex-column">
+
+                    <div th:text="${tk.getStartTime()}"></div>
+                    <div th:text="${tk.getEndTime()}"></div>
+                </div>
+            </td>
+            <td class="tcel text-center" th:text="${tk.setSpendTime()}"></td>
+            <td class="tcel text-center" th:text="${tk.getA()==0?'无票':tk.getA()}"></td>
+            <td class="tcel text-center" th:text="${tk.getB()==0?'无票':tk.getB()}"></td>
+            <td class="tcel text-center" th:text="${tk.getC()==0?'无票':tk.getC()}"></td>
+            <td class="tcel text-center">-</td>
+            <td class="tcel text-center"><a class="btn btn-primary" th:href="@{/o(trainNum=${tk.getTrainNum()},startTime=${tk.getStartTime()},startst=${tk.getStartStationName()},endtime=${tk.getEndTime()},endst=${tk.getEndStationName()
+                },A=${tk.getA()},B=${tk.getB()},C=${tk.getC()},time=${tk.getTravelTime()})}">预定</a></td>
+
+        </tr>
         </tbody>
     </table>
 </div>
