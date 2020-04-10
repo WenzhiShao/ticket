@@ -1,9 +1,6 @@
 package com.xjtu.happy.ticket.controller.management;
 
-import com.xjtu.happy.ticket.bean.Price;
-import com.xjtu.happy.ticket.bean.Station;
-import com.xjtu.happy.ticket.bean.Train;
-import com.xjtu.happy.ticket.bean.TrainType;
+import com.xjtu.happy.ticket.bean.*;
 import com.xjtu.happy.ticket.service.management.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class TrainController {
@@ -115,47 +109,59 @@ public class TrainController {
         //待拼接的字符串
         String  values = "";
         //获取当前日期
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         //一天后的日期
         calendar.add(Calendar.DATE, 1);
-        String date = df.format(calendar.getTime());
-        System.out.println("时间信息1："+df.format(calendar.getTime()));
+//        String date = df.format(calendar.getTime());
         //因为第一条前没有‘,’，先放进去
         int count = 1;
-        values = values + "('A'," + count + ",'" + trainId + "','" + date + "','NOMAL')";
+        List<TicketSeat> ticketSeats = new ArrayList<>();
+        TicketSeat ticketSeat = new TicketSeat();
+        ticketSeat.setTicketSeat("A","" + count, trainId, calendar.getTime(),"NORMAL");
+        ticketSeats.add(ticketSeat);
         count++;
+
         //添加7天的座位数据
         for(int orderDays = 0; orderDays < 7; orderDays++){
             //按座位类型依次拼接串
             while (count <= ANum) {
-                values = values + ",('A'," + count + ",'"+ trainId +"','"+ date +"','NOMAL')";
+                ticketSeat = new TicketSeat();
+                ticketSeat.setTicketSeat("A","" + count, trainId, calendar.getTime(),"NORMAL");
+                ticketSeats.add(ticketSeat);
                 count++;
             }
+            success = success && ticketSeatService.InsertTicketSeat(ticketSeats);
+            ticketSeats = new ArrayList<>();
             count = 1;
             while (count <= BNum) {
-                values = values + ",('B'," + count +",'"+ trainId +"','"+ date +"','NOMAL')";
+                ticketSeat = new TicketSeat();
+                ticketSeat.setTicketSeat("B","" + count, trainId, calendar.getTime(),"NORMAL");
+                ticketSeats.add(ticketSeat);
                 count++;
             }
+            success = success && ticketSeatService.InsertTicketSeat(ticketSeats);
+            ticketSeats = new ArrayList<>();
             count = 1;
             while (count <= CNum) {
-                values = values + ",('C'," + count +",'"+ trainId +"','"+ date +"','NOMAL')";
+                ticketSeat = new TicketSeat();
+                ticketSeat.setTicketSeat("C","" + count, trainId, calendar.getTime(),"NORMAL");
+                ticketSeats.add(ticketSeat);
                 count++;
             }
+            success = success && ticketSeatService.InsertTicketSeat(ticketSeats);
+            ticketSeats = new ArrayList<>();
             count = 1;
             //每生成完一天的座位日期加一天
             calendar.add(Calendar.DATE, 1);
-            date = df.format(calendar.getTime());
         }
-        System.out.println(values);
-//        success = ticketSeatService.InsertTicketSeat(values);
-//        if(!success) {
-//            model.addAttribute("seatmsg", "座位添加失败");
-//            return "redirect:/admin";
-//        }
-//        else
-//            model.addAttribute("seatmsg","添加成功");
+        if(!success) {
+            model.addAttribute("seatmsg", "座位添加失败");
+            return "redirect:/trains";
+        }
+        else
+            model.addAttribute("trainmsg","添加成功");
 
         return "redirect:/trains";
     }

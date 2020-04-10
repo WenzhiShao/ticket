@@ -5,6 +5,8 @@ import com.xjtu.happy.ticket.mapper.management.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TicketSeatService {
     @Autowired
@@ -12,8 +14,8 @@ public class TicketSeatService {
     public TicketSeat FindTicketSeatById(int seatid){
         return ticketSeatMapper.FindTicketSeatById(seatid);
     }
-    public boolean InsertTicketSeat(String ticketSeats){
-        if (ticketSeatMapper.InsertTicketSeat(ticketSeats) >= 1)
+    public boolean InsertTicketSeat(List<TicketSeat> ticketSeats){
+        if (ticketSeatMapper.InsertTicketSeats(ticketSeats) >= 1)
             return true;
         else
             return false;

@@ -68,4 +68,12 @@ public class TicketSeat {
     public void setTicketSeatStatus(String ticketSeatStatus) {
         this.ticketSeatStatus = ticketSeatStatus;
     }
+
+    public void setTicketSeat(String seatType,String seatNo,int trainId,Date travelTime,String ticketSeatStatus){
+        this.seatType = seatType;
+        this.seatNo = seatNo;
+        this.trainId = trainId;
+        this.travelTime = travelTime;
+        this.ticketSeatStatus = ticketSeatStatus;
+    }
 }
