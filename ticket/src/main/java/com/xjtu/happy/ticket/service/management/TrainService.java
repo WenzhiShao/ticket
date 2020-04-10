@@ -13,7 +13,10 @@ public class TrainService {
     TrainMapper trainMapper;
 
     public boolean InsertTrain(Train train){
-        return trainMapper.InsertTrain(train);
+        if (trainMapper.InsertTrain(train) >= 1)
+            return true;
+        else
+            return false;
     }
     public Train FindTrainById(String trainId){
         return trainMapper.FindTrainById(trainId);

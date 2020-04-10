@@ -11,7 +11,7 @@ public interface TicketSeatMapper {
     public TicketSeat FindTicketSeatById(int seatid);
 
     @Insert("insert into ticketseat(seatType, seatNo, trainId, travelTime, ticketSeatStatus) values #{ticketSeats}")
-    public boolean InsertTicketSeat(String ticketSeats);
+    public int InsertTicketSeat(String ticketSeats);
 
     @Select("select count(*) from ticketseat")
     public int CountOfSeat();

@@ -15,6 +15,16 @@ public class PriceService {
     }
 
     public boolean InsertPrice(Price price){
-        return priceMapper.InsertPrice(price);
+        if (priceMapper.InsertPrice(price) >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean CheckExist(int startStation_id,int endStation_id,int trainTypeId){
+        if (priceMapper.CheckExist(startStation_id,endStation_id,trainTypeId) >= 1)
+            return true;
+        else
+            return false;
     }
 }

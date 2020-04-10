@@ -13,7 +13,7 @@ public interface TrainMapper {
     @Insert("insert into train values(#{train.trainId},#{train.trainNum},#{train.trainTypeId}," +
             "#{train.startTime},#{train.endTime},#{train.startStationid},#{train.startStationName}," +
             "#{train.endStationid},#{train.endStationName})")
-    public boolean InsertTrain(Train train);
+    public int InsertTrain(Train train);
 
     @Select("select * from train where trainId = #{trainId}")
     public Train FindTrainById(String trainId);

@@ -13,7 +13,10 @@ public class TicketSeatService {
         return ticketSeatMapper.FindTicketSeatById(seatid);
     }
     public boolean InsertTicketSeat(String ticketSeats){
-        return ticketSeatMapper.InsertTicketSeat(ticketSeats);
+        if (ticketSeatMapper.InsertTicketSeat(ticketSeats) >= 1)
+            return true;
+        else
+            return false;
     }
     public int CountOfSeat(){
         return ticketSeatMapper.CountOfSeat();

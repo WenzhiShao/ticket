@@ -10,7 +10,11 @@ public interface PriceMapper {
 
     @Select("select * from price where startStationid = #{startStation_id} and endStationid = #{endStation_id}")
     public Price FindPriceByStationid(int startStation_id,int endStation_id);
+
     @Insert("insert into price values(#{price.startStationid},#{price.endStationid}," +
             "#{price.APrice},#{price.BPrice},#{price.CPrice},#{price.trainTypeId})")
-    public boolean InsertPrice(Price price);
+    public int InsertPrice(Price price);
+
+    @Select("select count(*) from price where startStationid = #{startStation_id} and endStationid = #{endStation_id} and trainTypeId = #{trainTypeId}")
+    public int CheckExist(int startStation_id,int endStation_id,int trainTypeId);
 }
