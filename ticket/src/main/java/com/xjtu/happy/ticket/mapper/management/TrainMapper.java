@@ -10,9 +10,9 @@ import java.util.List;
 
 @Mapper
 public interface TrainMapper {
-    @Insert("insert into train values(#{train.trainId},#{train.trainNum},#{train.trainTypeId}," +
-            "#{train.startTime},#{train.endTime},#{train.startStationid},#{train.startStationName}," +
-            "#{train.endStationid},#{train.endStationName})")
+    @Insert("insert into train values(#{trainId},#{trainNum},#{trainTypeId}," +
+            "#{startTime},#{endTime},#{startStationid},#{startStationName}," +
+            "#{endStationid},#{endStationName})")
     public int InsertTrain(Train train);
 
     @Select("select * from train where trainId = #{trainId}")

@@ -10,7 +10,7 @@ public interface TicketSeatMapper {
     @Select("select * from ticketseat where seatId = #{seatid}")
     public TicketSeat FindTicketSeatById(int seatid);
 
-    @Insert("insert into ticketseat(seatType, seatNo, trainId, travelTime, ticketSeatStatus) values #{ticketSeats}")
+    @Insert("insert into ticketseat(seatType, seatNo, trainId, travelTime, ticketSeatStatus) values ${ticketSeats}")
     public int InsertTicketSeat(String ticketSeats);
 
     @Select("select count(*) from ticketseat")
