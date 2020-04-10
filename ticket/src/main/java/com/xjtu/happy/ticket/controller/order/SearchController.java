@@ -1,7 +1,7 @@
-package com.xjtu.happy.ticket.controller;
+package com.xjtu.happy.ticket.controller.order;
 
 import com.xjtu.happy.ticket.bean.TicketLeft;
-import com.xjtu.happy.ticket.service.QueryTicketService;
+import com.xjtu.happy.ticket.service.order.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class QueryController {
+public class SearchController {
     @Autowired
-    QueryTicketService query;
+    SearchTicketService query;
     @RequestMapping("/index/list")
     public String querytickets(Model model, String start , String end,String date) throws ParseException {
         SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd");
@@ -39,7 +39,7 @@ public class QueryController {
     public String turnToOrder(HttpServletRequest req, @RequestParam Integer trainId,@RequestParam java.sql.Date time){
     	HttpSession session=req.getSession();
 
-    	TicketLeft ticketSelected = query.odTicket(trainId,time);
+    	TicketLeft ticketSelected = query.odTickets(trainId,time);
     	ticketSelected.setTravelTime(time);
         session.setAttribute("ticketSelected", ticketSelected);
     

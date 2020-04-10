@@ -1,4 +1,4 @@
-package com.xjtu.happy.ticket.service;
+package com.xjtu.happy.ticket.service.login;
 
 import com.xjtu.happy.ticket.bean.User;
 import com.xjtu.happy.ticket.mapper.UserMapper;

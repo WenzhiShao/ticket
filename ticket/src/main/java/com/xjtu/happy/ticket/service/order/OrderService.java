@@ -1,4 +1,4 @@
-package com.xjtu.happy.ticket.service;
+package com.xjtu.happy.ticket.service.order;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xjtu.happy.ticket.bean.Orders;
 import com.xjtu.happy.ticket.bean.Ticket;
 import com.xjtu.happy.ticket.bean.TicketSeat;
-import com.xjtu.happy.ticket.mapper.OrderMapper;
+import com.xjtu.happy.ticket.mapper.order.*;
 
 
 @Service

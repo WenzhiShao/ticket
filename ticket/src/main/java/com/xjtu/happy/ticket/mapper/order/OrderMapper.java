@@ -1,4 +1,4 @@
-package com.xjtu.happy.ticket.mapper;
+package com.xjtu.happy.ticket.mapper.order;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
