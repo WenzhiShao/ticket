@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="../static/css/mystyle.css">
@@ -53,22 +53,22 @@
             <tbody class="text-center">
             <tr>
                 <td class="tcel">1</td>
-                <td class="tcel">
+                <td class="tcel" th:text="${ticketType}">
                     成人票
                 </td>
-                <td class="tcel">
+                <td class="tcel" th:text="${seatType}">
                    特等座
                 </td>
-                <td class="tcel">
+                <td class="tcel" th:text="${name}">
                     马卡斯
                 </td>
-                <td class="tcel">
+                <td class="tcel" th:text="${identityType}">
                     居民身份证
                 </td>
-                <td class="tcel">
+                <td class="tcel" th:text="${identityNum}">
                     xxxxx
                 </td>
-                <td class="tcel">
+                <td class="tcel" th:text="${phone}">
                    xxxxx
                 </td>
             </tr>
