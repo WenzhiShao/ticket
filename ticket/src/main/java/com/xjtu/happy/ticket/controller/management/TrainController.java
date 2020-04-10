@@ -59,42 +59,59 @@ public class TrainController {
                            Train train, Model model){
 
         boolean success = false;
+        //预存数据，减少冗余
+        int trainTypeId = train.getTrainTypeId();
+        int startStationId = train.getStartStationid();
+        int endStationId = train.getEndStationid();
+        int trainId = train.getTrainId();
+
         //插入车次
         train.setTrainId(trainService.CountOfTrains());
-        train.setTrainNum(""+train.getTrainTypeId()+train.getStartStationid()+train.getEndStationid()+train.getTrainId());
-        train.setStartStationName(""+stationService.FindStationById(train.getStartStationid()));
-        train.setEndStationName(""+stationService.FindStationById(train.getEndStationid()));
+        train.setTrainNum(""+trainTypeId+startStationId+endStationId+trainId);
+        train.setStartStationName(""+stationService.FindStationById(startStationId));
+        train.setEndStationName(""+stationService.FindStationById(endStationId));
         success = trainService.InsertTrain(train);
-        if(!success)
-            model.addAttribute("trainmsg","车次添加失败");
+        if(!success) {
+            model.addAttribute("trainmsg", "车次添加失败");
+            return "redirect:/trains";
+        }
 
         //插入价格
-        /*============================须加入判断是否存在的条件=============================*/
-        Price price = new Price();
-        price.setAPrice(APrice);
-        price.setBPrice(BPrice);
-        price.setCPrice(CPrice);
-        price.setStartStationid(train.getStartStationid());
-        price.setEndStationid(train.getEndStationid());
-        price.setTrainTypeId(train.getTrainTypeId());
-        success = priceService.InsertPrice(price);
-        if(!success)
-            model.addAttribute("pricemsg","价格表插入失败");
+        //判断是否存在该类型车次价格
+        if (!priceService.CheckExist(startStationId,endStationId,trainTypeId)) {
+            Price price = new Price();
+            price.setAPrice(APrice);
+            price.setBPrice(BPrice);
+            price.setCPrice(CPrice);
+            price.setStartStationid(startStationId);
+            price.setEndStationid(endStationId);
+            price.setTrainTypeId(trainTypeId);
+            success = priceService.InsertPrice(price);
+            if (!success) {
+                model.addAttribute("pricemsg", "价格表插入失败");
+                return "redirect:/trains";
+            }
+        }
 
         //生成座位
-        TrainType trainType = trainTypeService.FindTrainTypeById(train.getTrainTypeId());
+        TrainType trainType = trainTypeService.FindTrainTypeById(trainTypeId);
         int ANum = trainType.getANum(),
                 BNum = trainType.getBNum(),
                 CNum = trainType.getCNum();
+        //待拼接的字符串
         String  values = "";
+        //获取当前日期
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
+        //一天后的日期
         calendar.add(Calendar.DATE, 1);
-        String trainId = "" + train.getTrainId();
+        //因为第一条前没有‘,’，先放进去
         values += "('A'," + "" + ANum + ",'" + trainId + "','" + calendar + "','NOMAL')";
         ANum--;
+        //添加7天的座位数据
         for(int orderDays = 0; orderDays < 7; orderDays++){
+            //按座位类型依次拼接串
             while (ANum > 0) {
                 values = values + ",('A',"+ ""+ ANum +",'"+ trainId +"','"+ calendar +"','NOMAL')";
                 ANum--;
@@ -107,11 +124,16 @@ public class TrainController {
                 values = values + ",('C',"+ ""+ CNum +",'"+ trainId +"','"+ calendar +"','NOMAL')";
                 CNum--;
             }
+            //每生成完一天的座位日期加一天
             calendar.add(Calendar.DATE, 1);
         }
-        ticketSeatService.InsertTicketSeat(values);
-        if(!success)
-            model.addAttribute("price","价格表插入失败");
+        success = ticketSeatService.InsertTicketSeat(values);
+        if(!success) {
+            model.addAttribute("seatmsg", "座位添加失败");
+            return "redirect:/trains";
+        }
+        else
+            model.addAttribute("seatmsg","添加成功");
 
         return "redirect:/trains";
     }
