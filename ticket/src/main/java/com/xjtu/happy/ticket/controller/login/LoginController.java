@@ -44,7 +44,7 @@ public class LoginController {
                 map.put("msg","登录成功");
                 return "redirect:/search";}
             else {
-                return "redirect:/admin.html";
+                return "redirect:/trains";
             }
         }
         //登录失败，返回登录页面
