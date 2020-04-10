@@ -1,5 +1,6 @@
 package com.xjtu.happy.ticket.bean;
 
+import java.math.BigDecimal;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,9 @@ public class TicketLeft {
 
     //车次号
     private String trainNum;
-    //出发时间
+    
+
+	//出发时间
     private Time startTime;
     //到达时间
     private Time endTime;
@@ -28,9 +31,14 @@ public class TicketLeft {
     private String endStationName;
     //乘车日期
     private java.sql.Date travelTime;
+
     private int A;
     private int B;
     private int C;
+    
+    private BigDecimal APrice;
+    private BigDecimal BPrice;
+    private BigDecimal CPrice;
 
     public String setSpendTime() throws ParseException {
         long time = this.endTime.getTime() - this.startTime.getTime();
@@ -101,20 +109,22 @@ public class TicketLeft {
     public void setEndStationName(String endStationName) {
         this.endStationName = endStationName;
     }
+    
 
-    public Date getTravelTime() {
-        return travelTime;
-    }
+    public java.sql.Date getTravelTime() {
+		return travelTime;
+	}
 
-    public void setTravelTime(java.sql.Date travelTime) {
-        this.travelTime = travelTime;
-    }
+	public void setTravelTime(java.sql.Date travelTime) {
+		this.travelTime = travelTime;
+	}
 
-    public int getA() {
+	public int getA() {
         return A;
     }
 
-    public void setA(int a) {
+
+	public void setA(int a) {
         A = a;
     }
 
@@ -133,4 +143,28 @@ public class TicketLeft {
     public void setC(int c) {
         C = c;
     }
+
+	public BigDecimal getAPrice() {
+		return APrice;
+	}
+
+	public void setAPrice(BigDecimal aPrice) {
+		APrice = aPrice;
+	}
+
+	public BigDecimal getBPrice() {
+		return BPrice;
+	}
+
+	public void setBPrice(BigDecimal bPrice) {
+		BPrice = bPrice;
+	}
+
+	public BigDecimal getCPrice() {
+		return CPrice;
+	}
+
+	public void setCPrice(BigDecimal cPrice) {
+		CPrice = cPrice;
+	}
 }
