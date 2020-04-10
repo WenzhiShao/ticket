@@ -117,7 +117,8 @@ CREATE TABLE `ticketseat` (
   `trainId` int(11) NOT NULL COMMENT '车次id',
   `travelTime` date NOT NULL COMMENT '乘车日期',
   `ticketSeatStatus` varchar(255) NOT NULL COMMENT '座位状态：已售出，未售出',
-  PRIMARY KEY (`seatId`)
+  PRIMARY KEY (`seatId`),
+  KEY `idx_seat` (`seatType`,`trainId`,`travelTime`,`ticketSeatStatus`)
 ) ENGINE=InnoDB AUTO_INCREMENT=781 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
