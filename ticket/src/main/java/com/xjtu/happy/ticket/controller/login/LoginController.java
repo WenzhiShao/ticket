@@ -42,7 +42,7 @@ public class LoginController {
             if(player==false){
                 model.addAttribute("user",userName);
                 map.put("msg","登录成功");
-                return "redirect:/serch.html";}
+                return "redirect:/search";}
             else {
                 return "redirect:/admin.html";
             }

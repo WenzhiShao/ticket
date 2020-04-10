@@ -1,7 +1,7 @@
-package com.xjtu.happy.ticket.service;
+package com.xjtu.happy.ticket.service.management;
 
 import com.xjtu.happy.ticket.bean.Station;
-import com.xjtu.happy.ticket.mapper.StationMapper;
+import com.xjtu.happy.ticket.mapper.management.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

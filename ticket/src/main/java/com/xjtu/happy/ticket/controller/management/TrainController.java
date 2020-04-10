@@ -1,10 +1,10 @@
-package com.xjtu.happy.ticket.controller;
+package com.xjtu.happy.ticket.controller.management;
 
 import com.xjtu.happy.ticket.bean.Price;
 import com.xjtu.happy.ticket.bean.Station;
 import com.xjtu.happy.ticket.bean.Train;
 import com.xjtu.happy.ticket.bean.TrainType;
-import com.xjtu.happy.ticket.service.*;
+import com.xjtu.happy.ticket.service.management.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
