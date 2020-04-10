@@ -1,4 +1,4 @@
-﻿package com.xjtu.happy.ticket.bean;
+package com.xjtu.happy.ticket.bean;
 
 import lombok.Getter;
 import lombok.Setter;
