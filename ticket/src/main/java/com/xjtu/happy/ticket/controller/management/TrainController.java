@@ -6,6 +6,7 @@ import com.xjtu.happy.ticket.bean.Train;
 import com.xjtu.happy.ticket.bean.TrainType;
 import com.xjtu.happy.ticket.service.management.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+@Controller
 public class TrainController {
     @Autowired
     TrainService trainService;
@@ -38,7 +40,7 @@ public class TrainController {
     public String trainlist(Model model) {
         List<Train> trains = trainService.FindAllTrains();
         model.addAttribute("trains", trains);
-        return "train/list";
+        return "admin";
     }
 
     @GetMapping("/train")
@@ -48,7 +50,7 @@ public class TrainController {
         List<Station> stations = stationService.FindAllStations();
         model.addAttribute("trainTypes", trainTypes);
         model.addAttribute("stations", stations);
-        return "train/add";
+        return "addtrain";
     }
 
     //添加车次
@@ -63,13 +65,24 @@ public class TrainController {
         int trainTypeId = train.getTrainTypeId();
         int startStationId = train.getStartStationid();
         int endStationId = train.getEndStationid();
-        int trainId = train.getTrainId();
+
 
         //插入车次
-        train.setTrainId(trainService.CountOfTrains());
-        train.setTrainNum(""+trainTypeId+startStationId+endStationId+trainId);
-        train.setStartStationName(""+stationService.FindStationById(startStationId));
-        train.setEndStationName(""+stationService.FindStationById(endStationId));
+        char trainTypeName;
+        if (trainTypeId == 1)
+            trainTypeName = 'G';
+        else if (trainTypeId == 2)
+            trainTypeName = 'D';
+        else if (trainTypeId == 3)
+            trainTypeName = 'T';
+        else
+            trainTypeName = 'K';
+        train.setTrainId(trainService.CountOfTrains()+1);
+        int trainId = train.getTrainId();
+        train.setTrainNum("" + trainTypeName + startStationId + endStationId+trainId);
+        train.setStartStationName(""+stationService.FindStationById(startStationId).getStationName());
+        train.setEndStationName(""+stationService.FindStationById(endStationId).getStationName());
+//        System.out.println("列车信息"+train);
         success = trainService.InsertTrain(train);
         if(!success) {
             model.addAttribute("trainmsg", "车次添加失败");
@@ -86,6 +99,7 @@ public class TrainController {
             price.setStartStationid(startStationId);
             price.setEndStationid(endStationId);
             price.setTrainTypeId(trainTypeId);
+            System.out.println("价格信息:"+price);
             success = priceService.InsertPrice(price);
             if (!success) {
                 model.addAttribute("pricemsg", "价格表插入失败");
@@ -106,34 +120,42 @@ public class TrainController {
         calendar.setTime(new Date());
         //一天后的日期
         calendar.add(Calendar.DATE, 1);
+        String date = df.format(calendar.getTime());
+        System.out.println("时间信息1："+df.format(calendar.getTime()));
         //因为第一条前没有‘,’，先放进去
-        values += "('A'," + "" + ANum + ",'" + trainId + "','" + calendar + "','NOMAL')";
-        ANum--;
+        int count = 1;
+        values = values + "('A'," + count + ",'" + trainId + "','" + date + "','NOMAL')";
+        count++;
         //添加7天的座位数据
         for(int orderDays = 0; orderDays < 7; orderDays++){
             //按座位类型依次拼接串
-            while (ANum > 0) {
-                values = values + ",('A',"+ ""+ ANum +",'"+ trainId +"','"+ calendar +"','NOMAL')";
-                ANum--;
+            while (count <= ANum) {
+                values = values + ",('A'," + count + ",'"+ trainId +"','"+ date +"','NOMAL')";
+                count++;
             }
-            while (BNum > 0) {
-                values = values + ",('B',"+ ""+ BNum +",'"+ trainId +"','"+ calendar +"','NOMAL')";
-                BNum--;
+            count = 1;
+            while (count <= BNum) {
+                values = values + ",('B'," + count +",'"+ trainId +"','"+ date +"','NOMAL')";
+                count++;
             }
-            while (CNum > 0) {
-                values = values + ",('C',"+ ""+ CNum +",'"+ trainId +"','"+ calendar +"','NOMAL')";
-                CNum--;
+            count = 1;
+            while (count <= CNum) {
+                values = values + ",('C'," + count +",'"+ trainId +"','"+ date +"','NOMAL')";
+                count++;
             }
+            count = 1;
             //每生成完一天的座位日期加一天
             calendar.add(Calendar.DATE, 1);
+            date = df.format(calendar.getTime());
         }
-        success = ticketSeatService.InsertTicketSeat(values);
-        if(!success) {
-            model.addAttribute("seatmsg", "座位添加失败");
-            return "redirect:/trains";
-        }
-        else
-            model.addAttribute("seatmsg","添加成功");
+        System.out.println(values);
+//        success = ticketSeatService.InsertTicketSeat(values);
+//        if(!success) {
+//            model.addAttribute("seatmsg", "座位添加失败");
+//            return "redirect:/admin";
+//        }
+//        else
+//            model.addAttribute("seatmsg","添加成功");
 
         return "redirect:/trains";
     }
