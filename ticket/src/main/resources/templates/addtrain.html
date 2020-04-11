@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link type="text/css" rel="stylesheet" href="../css/mystyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="bootstrap-datetimepicker.min.css">
-        <link rel="stylesheet" href="bootstrap-datetimepicker.min.js">
+    <link rel="stylesheet" href="bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="bootstrap-datetimepicker.min.js">
     <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js"
@@ -19,7 +20,6 @@
     <meta name="viewport" content="width">
     <meta charset="UTF-8">
     <title>添加车次</title>
-
 </head>
 <body class="w-100">
 <div class="row w-100 p-0 ">
@@ -27,7 +27,6 @@
         <a href="#"><img src="../image/微信截图_20200404211502.png" style="height: 5rem"></a>
     </div>
     <div class="col btn-group justify-content-end align-items-center">
-
     </div>
 </div>
 <div class="nav nav-tabs justify-content-center w-100 p-0 bg-primary">
@@ -41,20 +40,23 @@
                 <input type="hidden" name="_method" value="put" th:if="${train!=null}"/>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">列车类型</label>
-                    <select name="trainTypeId" class="form-control" id="exampleFormControlSelect1">
-                        <option th:selected="${train!=null}?${train.trainId}" th:each="trainType:${trainTypes}" th:value="${trainType.trainTypeId}" th:text="${trainType.trainTypeId}"></option>
+                    <select name="trainTypeId" class="form-control" id="exampleFormControlSelect1" >
+                        <option value="" disabled selected>请选择</option>
+                        <option  th:selected="${train!=null}?${train.trainId}" th:each="trainType:${trainTypes}" th:value="${trainType.trainTypeId}" th:text="${trainType.trainTypeId}"></option>
                     </select>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="exampleFormControlSelect1">起始站</label>
                         <select name="startStationid" class="form-control">
+                            <option value="" disabled selected>请选择</option>
                             <option th:selected="${train!=null}?${station.stationId == train.startStationid}" th:each="station:${stations}" th:value="${station.stationId}" th:text="${station.stationName}"></option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="exampleFormControlSelect1">终点站</label>
                         <select name="endStationid" class="form-control">
+                            <option value="" disabled selected>请选择</option>
                             <option th:selected="${train!=null}?${station.stationId == train.endStationid}" th:each="station:${stations}" th:value="${station.stationId}" th:text="${station.stationName}"></option>
                         </select>
                     </div>
@@ -62,42 +64,57 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>发车时间</label>
-                        <!--指定 date标记-->
-                        <input th:value="${train!=null}?${train.startTime}" type="text" class="form-control datetimepicker" name="startTime"/>
+                        <input th:value="${train!=null}?${train.startTime}" type="datetime-local" class="form-control datetimepicker" name="startTime" />
                     </div>
                     <div class="form-group col-md-6">
                         <label>到达时间</label>
-                        <input th:value="${train!=null}?${train.endTime}" type="text" class="form-control datetimepicker" name="endTime"/>
+                        <input th:value="${train!=null}?${train.endTime}" type="datetime-local" class="form-control datetimepicker" name="endTime"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label >特等座价格</label>
-                    <input th:value="${price!=null}?${price.APrice}" name="APrice" class="form-control">
+                    <input th:value="${price!=null}?${price.APrice}" name="APrice" class="form-control" placeholder="请输入特等座价格">
                 </div>
                 <div class="form-group">
                     <label >一等座价格</label>
-                    <input th:value="${price!=null}?${price.BPrice}" name="BPrice" class="form-control">
+                    <input th:value="${price!=null}?${price.BPrice}" name="BPrice" class="form-control" placeholder="请输入一等座价格">
                 </div>
                 <div class="form-group">
                     <label >二等座价格</label>
-                    <input th:value="${price!=null}?${price.CPrice}" name="CPrice" class="form-control">
+                    <input th:value="${price!=null}?${price.CPrice}" name="CPrice" class="form-control" placeholder="请输入二等座价格">
                 </div>
                 <button type="submit" class="btn btn-primary" >提交</button>
             </form>
         </div>
     </div>
 </div>
+
 <!--<script>-->
+
 <!--var project_details = {-->
-<!--        minView: 0,-->
-<!--        language:  'zh-CN',-->
-<!--        format: 'yyyy-mm-dd hh:ii',-->
-<!--        //todayBtn:  1,//今日按钮-->
-<!--        autoclose: 1,//选中关闭-->
-<!--        //todayHighlight : 1,-->
-<!--        //forceParse : 1,-->
-<!--    };-->
-<!--    $('.datetimepicker').datetimepicker(project_details);-->
+
+<!--        minView: 0,-->
+
+<!--        language:  'zh-CN',-->
+
+<!--        format: 'yyyy-mm-dd hh:ii',-->
+
+<!--        //todayBtn:  1,//今日按钮-->
+
+<!--        autoclose: 1,//选中关闭-->
+
+<!--        //todayHighlight : 1,-->
+
+<!--        //forceParse : 1,-->
+
+<!--    };-->
+
+<!--    $('.datetimepicker').datetimepicker(project_details);-->
+
 <!--</script>-->
+
 </body>
+
 </html>
+
+
