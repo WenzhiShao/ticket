@@ -15,8 +15,8 @@ public interface TrainMapper {
             "#{endStationid},#{endStationName})")
     public int InsertTrain(Train train);
 
-    @Select("select * from train where trainId = #{trainId}")
-    public Train FindTrainById(String trainId);
+    @Select("select * from train where trainNum = #{trainNum}")
+    public Train FindTrainByNum(String trainNum);
 
     @Select("select * from train")
     public List<Train> FindAllTrains();

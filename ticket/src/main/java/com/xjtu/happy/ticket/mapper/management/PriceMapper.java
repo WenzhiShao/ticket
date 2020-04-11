@@ -8,8 +8,9 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface PriceMapper {
 
-    @Select("select * from price where startStationid = #{startStation_id} and endStationid = #{endStation_id}")
-    public Price FindPriceByStationid(int startStation_id,int endStation_id);
+    @Select("select * from price where startStationid = #{startStation_id} " +
+            "and endStationid = #{endStation_id} and trainTypeId = #{trainTypeId}")
+    public Price FindPriceByTrainAndStation(int startStation_id,int endStation_id,int trainTypeId);
 
     @Insert("insert into price values(#{startStationid},#{endStationid}," +
             "#{APrice},#{BPrice},#{CPrice},#{trainTypeId})")
