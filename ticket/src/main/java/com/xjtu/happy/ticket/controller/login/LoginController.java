@@ -57,7 +57,7 @@ public class LoginController {
                 return "redirect:/search";
             } else {
                 //是管理员
-                return "redirect:/admin";
+                return "redirect:/trains";
             }
         }
         //登录失败，返回登录页面
