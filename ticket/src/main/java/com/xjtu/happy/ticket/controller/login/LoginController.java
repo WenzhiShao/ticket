@@ -62,8 +62,9 @@ public class LoginController {
         }
         //登录失败，返回登录页面
         else{
+            session.setAttribute("msg","登录失败");
             map.put("msg","登录失败");
-            return "login";
+            return "redirect:/login";
         }
 
     }
