@@ -61,7 +61,7 @@
                     <input type="date" name="date" id="date" class="form-control" required="">
                 </div>
             </div>
-            <p style="color: red" th:text="${session.msg}" th:if="${not #strings.isEmpty(session.msg)}"></p>
+            <p style="color: red" th:text="${session.msgOfNullList}" th:if="${not #strings.isEmpty(session.msgOfNullList)}"></p>
             <div class="row justify-content-center">
                 <button type="submit" class="btn btn-primary w-50">查询</button>
             </div>

@@ -24,8 +24,12 @@ import static com.xjtu.happy.ticket.config.MyMvcConfig.*;
 public class LoginController {
     @Autowired
     LoginService userService;
-    @GetMapping("/login")
-    public String login(){
+    @GetMapping({"/login","/"})
+    public String login(HttpServletRequest req){
+//        HttpSession session = req.getSession();
+//        if(session.getAttribute("msg")!= null) {
+//            session.removeAttribute("msg");
+//        }
         return "login";
     }
 
@@ -62,7 +66,7 @@ public class LoginController {
         }
         //登录失败，返回登录页面
         else{
-            session.setAttribute("msg","登录失败");
+            session.setAttribute("msgOfLogin","登录失败");
             map.put("msg","登录失败");
             return "redirect:/login";
         }

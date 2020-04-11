@@ -26,7 +26,7 @@ public class SearchController {
         List<TicketLeft> ticketLefts = query.queryTickets(start, end,d);
         if (ticketLefts.isEmpty()){
             HttpSession session = request.getSession();
-            session.setAttribute("msg","暂无列车信息");
+            session.setAttribute("msgOfNullList","暂无列车信息");
 //            model.addAttribute("msg", "暂无列车信息");
             return "redirect:/search";
         }else {
