@@ -27,4 +27,13 @@ public class LoginService {
             return false;
         }
     }
+
+    public  boolean FindByname(String name) {
+        if(loginMapper.FindByname(name)!=null){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

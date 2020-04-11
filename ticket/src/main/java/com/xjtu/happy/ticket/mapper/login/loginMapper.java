@@ -12,4 +12,6 @@ public interface loginMapper {
     User Identity(String userName, String password);
     @Select("select * from user where userName = #{userName} and type = 'admin'" )
     User Check(String userName);
+    @Select("select * from user where userName = #{userName}")
+    User FindByname(String name);
 }
