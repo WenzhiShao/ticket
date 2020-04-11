@@ -43,22 +43,22 @@ public class LoginController {
         boolean user =userService.Identity(userName,md5password);
         boolean player =userService.Check(userName);
         //是否在数据库中
-        if (user){
+        if (user) {
             //把用户信息写入cookie
-            Cookie usernameCookie = new Cookie("userName",userName);
-            usernameCookie.setMaxAge(60*60);//保存一个小时
+            Cookie usernameCookie = new Cookie("userName", userName);
+            usernameCookie.setMaxAge(60 * 60);//保存一个小时
             usernameCookie.setPath("/");//所有路径
             response.addCookie(usernameCookie);
             //判断是否是管理员
-            if(!player){
+            if (!player) {
                 //普通用户
-                model.addAttribute("user",userName);
-                map.put("msg","登录成功");
-                return "redirect:/search.html";
-            }
-            else {
+                model.addAttribute("user", userName);
+                map.put("msg", "登录成功");
+                return "redirect:/search";
+            } else {
                 //是管理员
-                return "redirect:/admin.html";
+                return "redirect:/admin";
+            }
         }
         //登录失败，返回登录页面
         else{

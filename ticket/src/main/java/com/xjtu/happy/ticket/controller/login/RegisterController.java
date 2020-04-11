@@ -3,6 +3,7 @@ import com.xjtu.happy.ticket.bean.User;
 
 
 import com.xjtu.happy.ticket.mapper.login.RegisterMapper;
+import com.xjtu.happy.ticket.service.login.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 public class RegisterController {
     @Resource
     @Autowired
-    RegisterMapper registerMapper;
+    RegisterService registerService;
 
     @GetMapping("/register")
     public String Register(){
@@ -29,6 +30,7 @@ public class RegisterController {
         String password =request.getParameter("password");
         String md5passworld = DigestUtils.md5DigestAsHex(password.getBytes());
         String email =request.getParameter("email");
+        String name =request.getParameter("name");
         String identityNum=request.getParameter("identityNum");
         String phone=request.getParameter("phone");
         User user=new User();
@@ -36,10 +38,16 @@ public class RegisterController {
         user.setPassword(md5passworld);
         user.setEmail(email);
         user.setPhone(phone);
+        user.setName(name);
         user.setIdentityNum(identityNum);
         user.setType("user");//默认注册用户为购物人员
-        registerMapper.save(user);
-        return "login";
+        if(registerService.save(user)) {
+            return "login";
+        }
+        else
+        {
+            return "register";
+        }
     }
 
 }

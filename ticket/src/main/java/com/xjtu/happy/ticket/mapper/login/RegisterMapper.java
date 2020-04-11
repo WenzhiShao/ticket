@@ -11,8 +11,8 @@ public interface RegisterMapper {
     /*
             注册功能插入数据
      */
-    @Insert("insert into user (userName,password,email,phone,identityNum,type) value(#{userName},#{password},#{email},#{phone},#{identityNum},#{type}) ")
-    public  void save(User user);
+    @Insert("insert into user (userName,password,email,phone,name,identityNum,type) value(#{userName},#{password},#{email},#{phone},#{name},#{identityNum},#{type}) ")
+    public int save(User user);
     /*
             注册功能查询用户名
      */
