@@ -26,7 +26,7 @@ public class SearchController {
         List<TicketLeft> ticketLefts = query.queryTickets(start, end,d);
         if (ticketLefts.isEmpty()){
             model.addAttribute("msg","暂无列车信息");
-            return "query";
+            return "search";
         }else {
             System.out.println(ticketLefts); 
         model.addAttribute("tickets",ticketLefts);

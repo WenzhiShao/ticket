@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link type="text/css" rel="stylesheet" href="../static/css/mystyle.css">
+    <link type="text/css" rel="stylesheet" href="../css/mystyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="bootstrap-datetimepicker.min.css">
         <link rel="stylesheet" href="bootstrap-datetimepicker.min.js">
@@ -24,7 +24,7 @@
 <body class="w-100">
 <div class="row w-100 p-0 ">
     <div class="col justify-content-start ">
-        <a href="#"><img src="../static/image/微信截图_20200404211502.png" style="height: 5rem"></a>
+        <a href="#"><img src="../image/微信截图_20200404211502.png" style="height: 5rem"></a>
     </div>
     <div class="col btn-group justify-content-end align-items-center">
 
@@ -82,22 +82,22 @@
                     <label >二等座价格</label>
                     <input th:value="${price!=null}?${price.CPrice}" name="CPrice" class="form-control">
                 </div>
-                <button type="${train==null}?hidden:submit" class="btn btn-primary" th:if="${train!=null}">提交</button>
+                <button type="submit" class="btn btn-primary" >提交</button>
             </form>
         </div>
     </div>
 </div>
-<script>
-var project_details = {
-        minView: 0,
-        language:  'zh-CN',
-        format: 'yyyy-mm-dd hh:ii',
-        //todayBtn:  1,//今日按钮
-        autoclose: 1,//选中关闭
-        //todayHighlight : 1,
-        //forceParse : 1,
-    };
-    $('.datetimepicker').datetimepicker(project_details);
-</script>
+<!--<script>-->
+<!--var project_details = {-->
+<!--        minView: 0,-->
+<!--        language:  'zh-CN',-->
+<!--        format: 'yyyy-mm-dd hh:ii',-->
+<!--        //todayBtn:  1,//今日按钮-->
+<!--        autoclose: 1,//选中关闭-->
+<!--        //todayHighlight : 1,-->
+<!--        //forceParse : 1,-->
+<!--    };-->
+<!--    $('.datetimepicker').datetimepicker(project_details);-->
+<!--</script>-->
 </body>
 </html>
