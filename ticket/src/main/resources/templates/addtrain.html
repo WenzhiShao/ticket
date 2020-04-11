@@ -64,26 +64,26 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>发车时间</label>
-                        <input th:value="${train!=null}?${train.startTime}" type="text" class="form-control datetimepicker" name="startTime" />
+                        <input th:value="${train!=null}?${train.startTime}" type="time" step="1" class="form-control datetimepicker" name="startTime" />
                     </div>
                     <div class="form-group col-md-6">
                         <label>到达时间</label>
-                        <input th:value="${train!=null}?${train.endTime}" type="text" class="form-control datetimepicker" name="endTime"/>
+                        <input th:value="${train!=null}?${train.endTime}" type="time" step="1" class="form-control datetimepicker" name="endTime"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label >A座价格</label>
-                    <input th:value="${price!=null}?${price.APrice}" name="APrice" class="form-control" placeholder="请输入A座价格">
+                    <label >特等座价格</label>
+                    <input th:value="${price!=null}?${price.APrice}" name="APrice" class="form-control" placeholder="请输入特等座价格">
                 </div>
                 <div class="form-group">
-                    <label >B座价格</label>
-                    <input th:value="${price!=null}?${price.BPrice}" name="BPrice" class="form-control" placeholder="请输入B座价格">
+                    <label >一等座价格</label>
+                    <input th:value="${price!=null}?${price.BPrice}" name="BPrice" class="form-control" placeholder="请输入一等座价格">
                 </div>
                 <div class="form-group">
-                    <label >C座价格</label>
-                    <input th:value="${price!=null}?${price.CPrice}" name="CPrice" class="form-control" placeholder="请输入C座价格">
+                    <label >二等座价格</label>
+                    <input th:value="${price!=null}?${price.CPrice}" name="CPrice" class="form-control" placeholder="请输入二等座价格">
                 </div>
-                <button type="submit" class="btn btn-lg btn-primary btn-block" >提交</button>
+                <button type="submit" class="btn btn-primary" >提交</button>
             </form>
         </div>
     </div>
