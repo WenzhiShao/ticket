@@ -59,7 +59,6 @@ public class LoginController {
             else {
                 //是管理员
                 return "redirect:/admin.html";
-            }
         }
         //登录失败，返回登录页面
         else{
