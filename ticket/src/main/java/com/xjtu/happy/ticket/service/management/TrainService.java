@@ -18,8 +18,8 @@ public class TrainService {
         else
             return false;
     }
-    public Train FindTrainById(String trainId){
-        return trainMapper.FindTrainById(trainId);
+    public Train FindTrainByNum(String trainNum){
+        return trainMapper.FindTrainByNum(trainNum);
     }
     public List<Train> FindAllTrains(){
         return trainMapper.FindAllTrains();

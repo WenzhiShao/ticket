@@ -10,8 +10,8 @@ public class PriceService {
     @Autowired
     PriceMapper priceMapper;
 
-    public Price FindPriceByStationid(int startStation_id, int endStation_id){
-        return priceMapper.FindPriceByStationid(startStation_id, endStation_id);
+    public Price FindPriceByTrainAndStation(int startStation_id, int endStation_id, int trainTypeId){
+        return priceMapper.FindPriceByTrainAndStation(startStation_id, endStation_id, trainTypeId);
     }
 
     public boolean InsertPrice(Price price){
