@@ -53,8 +53,8 @@
             <td th:text="${train.startTime}"></td>
             <td th:text="${train.endTime}"></td>
             <td align="center">
-                <button class="btn btn-sm btn-primary">编辑</button>
-                <button class="btn btn-sm btn-danger">删除</button>
+                <a class="btn btn-sm btn-primary" th:href="@{/train/} + ${train.trainNum}">编辑</a>
+                <a class="btn btn-sm btn-danger">删除</a>
             </td>
         </tr>
         </tbody>

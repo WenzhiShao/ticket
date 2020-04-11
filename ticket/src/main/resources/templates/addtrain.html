@@ -38,23 +38,24 @@
     <div class="container">
         <div  class="mx-auto" style="width: 600px;">
             <form th:action="@{/train}" method="post">
+                <input type="hidden" name="_method" value="put" th:if="${train!=null}"/>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">列车类型</label>
                     <select name="trainTypeId" class="form-control" id="exampleFormControlSelect1">
-                        <option th:each="trainType:${trainTypes}" th:value="${trainType.trainTypeId}" th:text="${trainType.trainTypeId}"></option>
+                        <option th:selected="${train!=null}?${train.trainId}" th:each="trainType:${trainTypes}" th:value="${trainType.trainTypeId}" th:text="${trainType.trainTypeId}"></option>
                     </select>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="exampleFormControlSelect1">起始站</label>
                         <select name="startStationid" class="form-control">
-                            <option th:each="station:${stations}" th:value="${station.stationId}" th:text="${station.stationName}"></option>
+                            <option th:selected="${train!=null}?${station.stationId == train.startStationid}" th:each="station:${stations}" th:value="${station.stationId}" th:text="${station.stationName}"></option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="exampleFormControlSelect1">终点站</label>
                         <select name="endStationid" class="form-control">
-                            <option th:each="station:${stations}" th:value="${station.stationId}" th:text="${station.stationName}"></option>
+                            <option th:selected="${train!=null}?${station.stationId == train.endStationid}" th:each="station:${stations}" th:value="${station.stationId}" th:text="${station.stationName}"></option>
                         </select>
                     </div>
                 </div>
@@ -62,26 +63,26 @@
                     <div class="form-group col-md-6">
                         <label>发车时间</label>
                         <!--指定 date标记-->
-                        <input type="text" class="form-control datetimepicker" name="startTime"/>
+                        <input th:value="${train!=null}?${train.startTime}" type="text" class="form-control datetimepicker" name="startTime"/>
                     </div>
                     <div class="form-group col-md-6">
                         <label>到达时间</label>
-                        <input type="text" class="form-control datetimepicker" name="endTime"/>
+                        <input th:value="${train!=null}?${train.endTime}" type="text" class="form-control datetimepicker" name="endTime"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label >特等座价格</label>
-                    <input name="APrice" class="form-control">
+                    <input th:value="${price!=null}?${price.APrice}" name="APrice" class="form-control">
                 </div>
                 <div class="form-group">
                     <label >一等座价格</label>
-                    <input name="BPrice" class="form-control">
+                    <input th:value="${price!=null}?${price.BPrice}" name="BPrice" class="form-control">
                 </div>
                 <div class="form-group">
                     <label >二等座价格</label>
-                    <input name="CPrice" class="form-control">
+                    <input th:value="${price!=null}?${price.CPrice}" name="CPrice" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-primary">添加</button>
+                <button type="${train==null}?hidden:submit" class="btn btn-primary" th:if="${train!=null}">提交</button>
             </form>
         </div>
     </div>
