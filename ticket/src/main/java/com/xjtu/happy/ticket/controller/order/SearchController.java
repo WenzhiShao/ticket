@@ -19,14 +19,16 @@ public class SearchController {
     @Autowired
     SearchTicketService query;
     @RequestMapping("/index/list")
-    public String querytickets(Model model, String start , String end,String date) throws ParseException {
+    public String querytickets(HttpServletRequest request, Model model, String start , String end,String date) throws ParseException {
         SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd");
         Date da= format.parse(date);         //字符串转化成Date类型（这里是java.util.Date）
         java.sql.Date d=new java.sql.Date(da.getTime());  //把java.util.Date转换成java.sql.Date
         List<TicketLeft> ticketLefts = query.queryTickets(start, end,d);
         if (ticketLefts.isEmpty()){
-            model.addAttribute("msg","暂无列车信息");
-            return "search";
+            HttpSession session = request.getSession();
+            session.setAttribute("msg","暂无列车信息");
+//            model.addAttribute("msg", "暂无列车信息");
+            return "redirect:/search";
         }else {
             System.out.println(ticketLefts); 
         model.addAttribute("tickets",ticketLefts);
