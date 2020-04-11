@@ -5,9 +5,7 @@ import com.xjtu.happy.ticket.service.management.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -93,7 +91,7 @@ public class TrainController {
             price.setStartStationid(startStationId);
             price.setEndStationid(endStationId);
             price.setTrainTypeId(trainTypeId);
-            System.out.println("价格信息:"+price);
+//            System.out.println("价格信息:"+price);
             success = priceService.InsertPrice(price);
             if (!success) {
                 model.addAttribute("pricemsg", "价格表插入失败");
@@ -166,6 +164,30 @@ public class TrainController {
         return "redirect:/trains";
     }
 
+    //修改列车信息
+    @GetMapping("/train/{trainNum}")
+    public String toEditTrain(@PathVariable("trainNum") String trainNum,
+                              Model model){
+        Train train = trainService.FindTrainByNum(trainNum);
+        model.addAttribute("train", train);
+        List<TrainType> trainTypes = trainTypeService.FindAllTrainTypes();
+        List<Station> stations = stationService.FindAllStations();
+        Price price = priceService.FindPriceByTrainAndStation(train.getStartStationid(),train.getEndStationid(),train.getTrainTypeId());
+        System.out.println(""+price.getAPrice()+price.getBPrice()+price.getCPrice());
+        model.addAttribute("trainTypes", trainTypes);
+        model.addAttribute("stations", stations);
+        model.addAttribute("price", price);
 
+        return "addtrain";
+    }
+
+
+    @PutMapping("/train")
+    public String updateTrain(Train train){
+
+        System.out.println("列车数据：" + train);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        return "redirect:/trains";
+    }
 
 }
