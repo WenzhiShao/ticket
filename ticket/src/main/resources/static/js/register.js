@@ -3,18 +3,36 @@ function checkUsername() {
         url:"/register",
         data:{"name":$("#username").val()},
         success:function (data) {
+            console.log(data);
             if(data.toString()=='√' ){
-                $('#nameInfo').css("color","green");
+                $('#usernameInfo').css("color","green");
             }
             else {
-                $('#nameInfo').css("color","red");
+                $('#usernameInfo').css("color","red");
             }
-            $('#nameInfo').html(data);
+            $('#usernameInfo').html(data);
 
         }
     })
 }
 function isCardNo() {
+    // $.post({
+    //     url:"/register",
+    //     data:{"num":$("#identityNum").val()},
+    //     success:function (data) {
+    //         console.log(data);
+    //         var pattern = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+    //         if(data.toString()=='√' ){
+    //             $('#identityInfo').css("color","green");
+    //         }
+    //         else {
+    //             $('#identityInfo').css("color","red");
+    //         }
+    //         $('#identityInfo').html(data);
+    //
+    //     }
+    //     }
+    // )
     var pattern = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
     // console.log($("#identityNum").val());
     // console.log(pattern.test($("#identityNum")));
@@ -29,9 +47,9 @@ function isCardNo() {
 }
 function checkPassword() {
     var pattern = /^[0-9]{1,20}$/;
-    // console.log($("#password").val());
-    // console.log(pattern.test($("#password")));
-    if (pattern.test($("#password").val())){
+    console.log($("#password").val());
+    console.log(pattern.exec($("#password").val()));
+    if (!pattern.exec($("#password").val())){
 
         $('#passwordInfo').css("color","green");
         data="√";
