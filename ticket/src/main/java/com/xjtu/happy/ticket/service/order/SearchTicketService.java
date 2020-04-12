@@ -12,7 +12,7 @@ import java.util.List;
 public class SearchTicketService {
     @Autowired
     SearchTicketMapper queryTicket;
-    public List<TicketLeft> queryTickets(String start, String end, Date date){
+    public List<TicketLeft> queryTickets(int start, int end, Date date){
         return queryTicket.queryTickets(start,end,date);
     }
     public TicketLeft odTickets(int id,Date date){

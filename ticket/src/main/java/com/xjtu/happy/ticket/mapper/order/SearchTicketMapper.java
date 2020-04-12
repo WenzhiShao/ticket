@@ -23,8 +23,8 @@ public interface SearchTicketMapper {
             "  LEFT JOIN\n" +
             "   (Select trainId,count(seatId) as C from ticketseat \n" +
             "    where seatType = 'C' and ticketSeatStatus = 'NORMAL' and travelTime = #{date} GROUP BY trainId) sc ON t.trainId = sc.trainId\n" +
-            "where t.startStationName=#{start} and t.endStationName=#{end} AND t.trainId=ticketseat.trainId AND ticketseat.travelTime=#{date}")
-    public List<TicketLeft> queryTickets(String start, String end, Date date);
+            "where t.startStationId=#{start} and t.endStationId=#{end} AND t.trainId=ticketseat.trainId AND ticketseat.travelTime=#{date}")
+    public List<TicketLeft> queryTickets(int start, int end, Date date);
     @Select("select t.trainId,t.trainNum,t.startTime,t.startStationName,t.endTime,t.endStationName,COALESCE(sa.ARemain,0) as A,\n" +
             "COALESCE(sb.BRemain,0) as B,COALESCE(sc.CRemain,0) as C,p.APrice,p.BPrice,p.CPrice from train t \n" +
             "  LEFT JOIN\n" +

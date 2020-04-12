@@ -77,9 +77,9 @@
                     </div>
                 </td>
                 <td class="tcel text-center" th:text="${tk.setSpendTime()}"></td>
-                <td class="tcel text-center" th:text="${tk.getA()==0?'无票':tk.getA()}"></td>
-                <td class="tcel text-center" th:text="${tk.getB()==0?'无票':tk.getB()}"></td>
-                <td class="tcel text-center" th:text="${tk.getC()==0?'无票':tk.getC()}"></td>
+                <td class="tcel text-center" th:text="${tk.getA()<20?(tk.getA()==0?'无票':tk.getA()):'有票'}"></td>
+                <td class="tcel text-center" th:text="${tk.getB()<20?(tk.getB()==0?'无票':tk.getB()):'有票'}"></td>
+                <td class="tcel text-center" th:text="${tk.getC()<20?(tk.getC()==0?'无票':tk.getC()):'有票'}"></td>
                 <td class="tcel text-center" >-</td>
                 <!-- <td class="tcel text-center"><a class="btn btn-primary" th:href="@{/o(trainId=${tk.getTrainId()},trainNum=${tk.getTrainNum()},startTime=${tk.getStartTime()},startst=${tk.getStartStationName()},endtime=${tk.getEndTime()},endst=${tk.getEndStationName()
                 },A=${tk.getA()},B=${tk.getB()},C=${tk.getC()},time=${tk.getTravelTime()})}">预定</a></td> -->
