@@ -41,6 +41,7 @@ public class SearchController {
         if (ticketLefts.isEmpty()){
             HttpSession session = request.getSession();
             session.setAttribute("msgOfNullList","暂无列车信息");
+            session.setAttribute("isMsgNullListExit",1);
 //            model.addAttribute("msg", "暂无列车信息");
             return "redirect:/search";
         }else {
@@ -83,6 +84,18 @@ public class SearchController {
     //进入查票页面
     @RequestMapping("/search")
     public String search(Model model, HttpServletRequest request, Map<String,Object> map){
+        HttpSession session = request.getSession();
+        Object isMsgNullListExit = session.getAttribute("isMsgNullListExit");
+        if(isMsgNullListExit != null) {
+            int exit = (int) isMsgNullListExit;
+            if(exit == 2) {
+                session.removeAttribute("msgOfNullList");
+                session.removeAttribute("isMsgNullListExit");
+            }
+            if(exit == 1) {
+                session.setAttribute("isMsgNullListExit",2);
+            }
+        }
         List<Station> stations = stationService.FindAllStations();
         model.addAttribute("stations", stations);
         Cookie[] cookies = request.getCookies();
