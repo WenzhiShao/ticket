@@ -17,6 +17,7 @@ import org.thymeleaf.util.StringUtils;
 import com.xjtu.happy.ticket.bean.Orders;
 import com.xjtu.happy.ticket.bean.Ticket;
 import com.xjtu.happy.ticket.bean.TicketLeft;
+import com.xjtu.happy.ticket.bean.TicketSeat;
 import com.xjtu.happy.ticket.bean.User;
 import com.xjtu.happy.ticket.service.order.*;
 import com.xjtu.happy.ticket.service.login.*;
@@ -36,11 +37,8 @@ public class OrderController {
 			@RequestParam("identityNum") String identityNum,@RequestParam("phone") String phone) {
 		HttpSession session=req.getSession();
 		User userInDB=userService.FindUserByIdentityNum(user.getIdentityNum());
-		if(StringUtils.isEmpty(user.getName()) || StringUtils.isEmpty(user.getIdentityNum())) {
-			model.addAttribute("msg","姓名或证件号码为空");
-			return "order";
-		}
-		else if(userInDB==null || !user.getName().equals(userInDB.getName())) {
+		
+		if(userInDB==null || !user.getName().equals(userInDB.getName())) {
 			model.addAttribute("msg","查无此人");
 			return "order";
 		}
@@ -55,14 +53,14 @@ public class OrderController {
 		order.setTotalPrice(seatType=="A"?ticketSelected.getAPrice():(seatType=="B"?ticketSelected.getBPrice():ticketSelected.getCPrice()));
 		order.setTrainId(ticketSelected.getTrainId());
 		
-		Ticket ticket=orderService.assignSeatByLock(order,ticketSelected.getTrainId(),seatType);
-		if(ticket==null) {
+		TicketSeat ticketSeat=orderService.assignSeatByLock(order,ticketSelected.getTrainId(),seatType,ticketSelected.getTravelTime());
+		if(ticketSeat==null) {
 			model.addAttribute("msg", seatType+"座票已售空");
 			return "order";
 		}
 		
 		model.addAttribute("ticketType", ticketType);
-		model.addAttribute("seatType", seatType);
+		model.addAttribute("seatTypeNo", seatType+ticketSeat.getSeatNo());
 		model.addAttribute("name", name);
 		model.addAttribute("identityType", identityType);
 		model.addAttribute("identityNum", identityNum);
