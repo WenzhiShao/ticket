@@ -2,7 +2,6 @@ package com.xjtu.happy.ticket.bean;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.ibatis.annotations.Insert;
 
 import java.math.BigDecimal;
 import java.util.Date;

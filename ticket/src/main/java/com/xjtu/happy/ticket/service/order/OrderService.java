@@ -4,7 +4,6 @@ package com.xjtu.happy.ticket.service.order;
 import java.util.Date;
 
 import com.xjtu.happy.ticket.bean.Ticket;
-import com.xjtu.happy.ticket.bean.Train;
 import com.xjtu.happy.ticket.mapper.management.TrainMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

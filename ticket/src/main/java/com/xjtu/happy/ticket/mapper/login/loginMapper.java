@@ -1,7 +1,6 @@
 package com.xjtu.happy.ticket.mapper.login;
 
 import com.xjtu.happy.ticket.bean.User;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

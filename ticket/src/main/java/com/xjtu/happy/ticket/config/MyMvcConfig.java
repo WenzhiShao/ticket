@@ -2,12 +2,10 @@ package com.xjtu.happy.ticket.config;
 
 
 import com.xjtu.happy.ticket.component.LoginHandlerInterceptor;
-import com.xjtu.happy.ticket.controller.login.LoginController;
 import com.xjtu.happy.ticket.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

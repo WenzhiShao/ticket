@@ -5,7 +5,6 @@ package com.xjtu.happy.ticket.mapper.order;
 import com.xjtu.happy.ticket.bean.TicketLeft;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;

@@ -1,8 +1,6 @@
 package com.xjtu.happy.ticket.controller.login;
 import com.xjtu.happy.ticket.bean.User;
 
-
-import com.xjtu.happy.ticket.mapper.login.RegisterMapper;
 import com.xjtu.happy.ticket.service.login.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
