@@ -1,7 +1,9 @@
 package com.xjtu.happy.ticket.controller.order;
 
+import com.sun.javafx.collections.MappingChange;
 import com.xjtu.happy.ticket.bean.Station;
 import com.xjtu.happy.ticket.bean.TicketLeft;
+import com.xjtu.happy.ticket.service.login.LoginService;
 import com.xjtu.happy.ticket.service.management.StationService;
 import com.xjtu.happy.ticket.service.order.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +14,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class SearchController {
     @Autowired
     SearchTicketService query;
+
+    @Autowired
+    LoginService userService;
 
     @Autowired
     StationService stationService;
@@ -42,6 +50,23 @@ public class SearchController {
     }
     }
 
+    @RequestMapping(value = "/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session=request.getSession();
+        session.removeAttribute("loginUser");
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("userName")){
+                Cookie usernamecookie = new Cookie("userName","");
+                usernamecookie.setMaxAge(0);
+                response.addCookie(usernamecookie);
+                }
+            }
+        }
+        return "redirect:/login";
+    }
+
     //进入预订页面
     @RequestMapping(value ="/o",method = RequestMethod.GET)
     public String turnToOrder(HttpServletRequest req, @RequestParam Integer trainId,@RequestParam java.sql.Date time){
@@ -57,9 +82,22 @@ public class SearchController {
  
     //进入查票页面
     @RequestMapping("/search")
-    public String search(Model model){
+    public String search(Model model, HttpServletRequest request, Map<String,Object> map){
         List<Station> stations = stationService.FindAllStations();
         model.addAttribute("stations", stations);
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("userName")) {
+                    String name = c.getValue();
+                    Boolean filename = userService.FindByname(name);
+                    if (filename) {
+                        map.put("msg",c.getValue());
+                        return "search";
+                    }
+                }
+            }
+        }
         return "search";
     }
 
