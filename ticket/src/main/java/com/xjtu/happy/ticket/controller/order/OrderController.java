@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
@@ -91,8 +92,12 @@ public class OrderController {
 		
 		
 	}
-	
 
+	//订单查询，跳转到订单查询页面
+	@RequestMapping("/orders")
+	public String submitOrder(Model model,HttpServletRequest req){
+		return "orders";
+	}
 
 
 }

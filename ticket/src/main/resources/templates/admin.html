@@ -23,8 +23,13 @@
     <div class="col justify-content-start ">
         <a href="#"><img src="../image/微信截图_20200404211502.png" style="height: 5rem"></a>
     </div>
-    <div class="col btn-group justify-content-end align-items-center">
+    <!--<div class="col btn-group justify-content-end align-items-center">
 
+    </div>-->
+    <div class="col btn-group justify-content-end align-items-center">
+        <div class="row">
+            <div class="col-auto" th:text="${session.loginUser}"></div>
+        </div>
     </div>
 </div>
 <div class="nav nav-tabs justify-content-center w-100 p-0 bg-primary">
