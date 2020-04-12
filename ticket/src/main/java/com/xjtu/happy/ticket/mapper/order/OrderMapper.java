@@ -17,7 +17,7 @@ public interface OrderMapper {
 	
 	
 	//插入订单
-	@Insert("INSERT INTO orders(orderNo,orderTime,trainId,ticektNum,totalPrice,orderStatus) VALUES(#{orderNo},#{orderTime},#{trainId},#{ticektNum},#{totalPrice},#{orderStatus})")
+	@Insert("INSERT INTO orders(orderNo,orderTime,trainId,ticektNum,totalPrice,orderStatus,orderUserId) VALUES(#{orderNo},#{orderTime},#{trainId},#{ticektNum},#{totalPrice},#{orderStatus},#{orderUserId})")
 	public void saveOrder(Orders order);
 
 	@Update("UPDATE orders SET orderStatus = 'paid' where orderNo = #{orderNo}")
@@ -32,7 +32,7 @@ public interface OrderMapper {
 	public void assignSeatByLock(@Param("seatId") int seatId);
 
 	//插入座位
-	@Insert("INSERT INTO ticket(orderNo,trainNum,seatId,seatNo,travelTime,price,name,identityNum,startTime,endTime,startStationid,startStationName,endStationid,endStationName,ticketStatus) " +
-			"VALUES(#{orderNo},#{trainNum},#{seatId},#{seatNo},#{travelTime},#{price},#{name},#{identityNum},#{startTime},#{endTime},#{startStationid},#{startStationName},#{endStationid},#{endStationName},#{ticketStatus})")
+	@Insert("INSERT INTO ticket(orderNo,trainNum,seatId,seatNo,travelTime,price,name,identityNum,startTime,endTime,startStationid,startStationName,endStationid,endStationName,ticketStatus,ticketUserId) " +
+			"VALUES(#{orderNo},#{trainNum},#{seatId},#{seatNo},#{travelTime},#{price},#{name},#{identityNum},#{startTime},#{endTime},#{startStationid},#{startStationName},#{endStationid},#{endStationName},#{ticketStatus},#{ticketUserId})")
 	public int InsertTicket(Ticket ticket);
 }

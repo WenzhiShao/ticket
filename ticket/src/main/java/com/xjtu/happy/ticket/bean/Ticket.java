@@ -58,6 +58,9 @@ public class Ticket {
     //票状态
     private String ticketStatus;
 
+    //购票用户
+    private int ticketUserId;
+
     public int getTicketId() {
         return ticketId;
     }
@@ -184,5 +187,13 @@ public class Ticket {
 
     public void setTicketStatus(String ticketStatus) {
         this.ticketStatus = ticketStatus;
+    }
+
+    public int getTicketUserId() {
+        return ticketUserId;
+    }
+
+    public void setTicketUserId(int ticketUserId) {
+        this.ticketUserId = ticketUserId;
     }
 }

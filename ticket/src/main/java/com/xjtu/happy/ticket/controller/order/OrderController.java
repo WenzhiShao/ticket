@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
+import javax.servlet.http.Cookie;
 import com.xjtu.happy.ticket.bean.Orders;
 import com.xjtu.happy.ticket.bean.Ticket;
 import com.xjtu.happy.ticket.bean.TicketLeft;
@@ -29,6 +30,8 @@ public class OrderController {
 	UserService userService;
 	@Autowired
 	OrderService orderService;
+	@Autowired
+	LoginService loginService;
 
     //提交订单，跳转到支付页面
 	@PostMapping("/submitOrder")
@@ -37,8 +40,19 @@ public class OrderController {
 			@RequestParam("name") String name,@RequestParam("identityType") String identityType,
 			@RequestParam("identityNum") String identityNum,@RequestParam("phone") String phone) {
 		HttpSession session=req.getSession();
-		User userInDB=userService.FindUserByIdentityNum(user.getIdentityNum());
-		
+		Cookie[] cookies = req.getCookies();
+		String strName = "";
+		for (Cookie cookie : cookies) {
+			switch(cookie.getName()){
+				case "userName":
+					strName = cookie.getValue();
+					break;
+				default:
+					break;
+			}
+		}
+		User userInDB = userService.FindUserByIdentityNum(user.getIdentityNum());
+		User operateUser = loginService.GetUserByname(strName);
 		if(userInDB==null || !user.getName().equals(userInDB.getName())) {
 			model.addAttribute("msg","查无此人");
 			return "order";
@@ -53,7 +67,8 @@ public class OrderController {
 		order.setTicektNum(1);
 		order.setTotalPrice(seatType=="A"?ticketSelected.getAPrice():(seatType=="B"?ticketSelected.getBPrice():ticketSelected.getCPrice()));
 		order.setTrainId(ticketSelected.getTrainId());
-		
+		order.setOrderUserId(operateUser.getUserId());
+
 		TicketSeat ticketSeat=orderService.assignSeatByLock(order,ticketSelected.getTrainId(),seatType,ticketSelected.getTravelTime());
 		if(ticketSeat==null) {
 			model.addAttribute("msg", seatType+"座票已售空");

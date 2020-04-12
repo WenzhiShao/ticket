@@ -2,6 +2,7 @@ package com.xjtu.happy.ticket.bean;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.annotations.Insert;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -29,6 +30,9 @@ public class Orders {
 
     //订单状态
     private String orderStatus;
+
+    //下单用户
+    private int orderUserId;
 
     public int getOrderId() {
         return orderId;
@@ -84,5 +88,13 @@ public class Orders {
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public int getOrderUserId() {
+        return orderUserId;
+    }
+
+    public void setOrderUserId(int orderUserId) {
+        this.orderUserId = orderUserId;
     }
 }
