@@ -10,6 +10,7 @@ import com.xjtu.happy.ticket.service.login.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
@@ -29,7 +30,7 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 
-  //提交订单，跳转到支付页面
+    //提交订单，跳转到支付页面
 	@PostMapping("/submitOrder")
 	public String submitOrder(User user,Model model,HttpServletRequest req,
 			@RequestParam("ticketType") String ticketType,@RequestParam("seatType") String seatType,
@@ -45,7 +46,7 @@ public class OrderController {
 		TicketLeft ticketSelected=(TicketLeft)session.getAttribute("ticketSelected");
 		Orders order=new Orders();
 		order.setOrderNo(UUID.randomUUID().toString().replaceAll("-", ""));
-		order.setOrderStatus("未支付");
+		order.setOrderStatus("unpaid");
 		Date date=new Date();
 		date.setTime(date.getTime()+8*60*60*1000);
 		order.setOrderTime(date);
@@ -65,6 +66,12 @@ public class OrderController {
 		model.addAttribute("identityType", identityType);
 		model.addAttribute("identityNum", identityNum);
 		model.addAttribute("phone", phone);
+
+		session.setAttribute("ticketSelected", ticketSelected);
+		session.setAttribute("order", order);
+		session.setAttribute("ticketseat",ticketSeat);
+		session.setAttribute("name",name);
+		session.setAttribute("identityNum",identityNum);
 		return "pay";
 		
 		

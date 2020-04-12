@@ -21,6 +21,9 @@ public class TrainService {
     public Train FindTrainByNum(String trainNum){
         return trainMapper.FindTrainByNum(trainNum);
     }
+    public Train FindTrainById(int trainId){
+        return trainMapper.FindTrainById(trainId);
+    }
     public List<Train> FindAllTrains(){
         return trainMapper.FindAllTrains();
     }

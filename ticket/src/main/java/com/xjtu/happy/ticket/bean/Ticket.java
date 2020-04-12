@@ -55,6 +55,9 @@ public class Ticket {
     //到达站名称
     private String endStationName;
 
+    //票状态
+    private String ticketStatus;
+
     public int getTicketId() {
         return ticketId;
     }
@@ -173,5 +176,13 @@ public class Ticket {
 
     public void setEndStationName(String endStationName) {
         this.endStationName = endStationName;
+    }
+
+    public String getTicketStatus() {
+        return ticketStatus;
+    }
+
+    public void setTicketStatus(String ticketStatus) {
+        this.ticketStatus = ticketStatus;
     }
 }

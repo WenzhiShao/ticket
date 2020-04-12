@@ -18,6 +18,9 @@ public interface TrainMapper {
     @Select("select * from train where trainNum = #{trainNum}")
     public Train FindTrainByNum(String trainNum);
 
+    @Select("select * from train where trainId = #{trainId}")
+    public Train FindTrainById(int trainId);
+
     @Select("select * from train")
     public List<Train> FindAllTrains();
 
