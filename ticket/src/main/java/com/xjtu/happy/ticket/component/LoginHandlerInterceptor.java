@@ -39,7 +39,8 @@ public class LoginHandlerInterceptor implements HandlerInterceptor{
             }
            HttpSession session=request.getSession();
                 session.setAttribute("msgOfLogin","没有权限，请先登录");
-                request.getRequestDispatcher("/login").forward(request,response);
+                request.getSession().setAttribute("exit",1);
+                response.sendRedirect("/login");
                 return false;
         } else {
             //session定义了用户信息，放行
