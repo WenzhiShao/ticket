@@ -23,18 +23,21 @@ import static com.xjtu.happy.ticket.config.MyMvcConfig.*;
 public class LoginController {
     @Autowired
     LoginService userService;
-    int exit = 0;
     @GetMapping({"/login","/"})
     public String login(HttpServletRequest req){
+        Object o = req.getSession().getAttribute("exit");
+        if(o == null)
+            return "/login";
+        int exit = (int )o;
         if(exit == 2) {
             HttpSession session = req.getSession();
             if (session.getAttribute("msgOfLogin") != null) {
                 session.removeAttribute("msgOfLogin");
-                exit = 0;
+                session.removeAttribute("exit");
             }
         }
         if(exit == 1)
-            exit++;
+            req.getSession().setAttribute("exit",2);
         return "login";
     }
 
@@ -48,14 +51,15 @@ public class LoginController {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         String md5password = DigestUtils.md5DigestAsHex(password.getBytes());
-        session.setAttribute("loginUser",userName);
         boolean user =userService.Identity(userName,md5password);
         boolean player =userService.Check(userName);
         //是否在数据库中
         if (user) {
+            //用户信息写到session里
+            session.setAttribute("loginUser",userName);
             //把用户信息写入cookie
             Cookie usernameCookie = new Cookie("userName", userName);
-            usernameCookie.setMaxAge(60 * 60);//保存一个小时
+            usernameCookie.setMaxAge(60*15);//保存15min
             usernameCookie.setPath("/");//所有路径
             response.addCookie(usernameCookie);
             //判断是否是管理员
@@ -72,7 +76,7 @@ public class LoginController {
         //登录失败，返回登录页面
         else{
             session.setAttribute("msgOfLogin","登录失败");
-            exit = 1;
+            session.setAttribute("exit",1);
             return "redirect:/login";
         }
 
