@@ -31,14 +31,15 @@ public class LoginHandlerInterceptor implements HandlerInterceptor{
                         String name = c.getValue();
                         Boolean filename = userService.FindByname(name);
                         if (filename) {
+                            request.getSession().setAttribute("loginUser",name);
                             return true;//放行
                         }
                     }
                 }
             }
-           HttpSession session=request.getSession();;
-                 session.setAttribute("msgOfLogin","没有权限，请先登录");
-                request.getRequestDispatcher("/index.html").forward(request, response);
+           HttpSession session=request.getSession();
+                session.setAttribute("msgOfLogin","没有权限，请先登录");
+                request.getRequestDispatcher("/login").forward(request,response);
                 return false;
         } else {
             //session定义了用户信息，放行
