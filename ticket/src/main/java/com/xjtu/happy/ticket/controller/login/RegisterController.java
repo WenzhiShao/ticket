@@ -22,7 +22,7 @@ public class RegisterController {
         return "register";
     }
 
-    @RequestMapping("/addUser")
+    @RequestMapping("/login")
     public String register(HttpServletRequest request){
         String username =request.getParameter("username");
         String password =request.getParameter("password");
