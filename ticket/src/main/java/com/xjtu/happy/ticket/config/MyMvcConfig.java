@@ -19,10 +19,9 @@ public class MyMvcConfig implements WebMvcConfigurer {
 
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-                registry.addViewController("/login").setViewName("login");
                 registry.addViewController("/admin").setViewName("admin");
                 registry.addViewController("/search").setViewName("search");
-                registry.addViewController("/user/register").setViewName("register");
+
             }
             @Autowired
             LoginService userService;
@@ -31,8 +30,9 @@ public class MyMvcConfig implements WebMvcConfigurer {
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(new LoginHandlerInterceptor(userService)).addPathPatterns("/**")
                         .excludePathPatterns("/login", "/index.html", "/register","/user/login","/"
-                                ,"/user/register","/register.html","/static/**","/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
-                                "/**/*.jpeg", "/**/*.gif", "/**/fonts/*", "/**/*.svg");
+                                ,"/user/register","/register.html","/addUser","/static/**","/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
+                                "/**/*.jpeg", "/**/*.gif", "/**/fonts/*", "/**/*.svg","/findpassword","/sendEmail",
+                        "/changepw");
 
 
             }
