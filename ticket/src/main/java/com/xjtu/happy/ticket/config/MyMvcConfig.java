@@ -26,16 +26,16 @@ public class MyMvcConfig implements WebMvcConfigurer {
             @Autowired
             LoginService userService;
             //拦截器
-            @Override
-            public void addInterceptors(InterceptorRegistry registry) {
-                registry.addInterceptor(new LoginHandlerInterceptor(userService)).addPathPatterns("/**")
-                        .excludePathPatterns("/login", "/index.html", "/register","/user/login","/"
-                                ,"/user/register","/register.html","/addUser","/static/**","/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
-                                "/**/*.jpeg", "/**/*.gif", "/**/fonts/*", "/**/*.svg","/findpassword","/sendEmail",
-                        "/changepw");
-
-
-            }
+//            @Override
+//            public void addInterceptors(InterceptorRegistry registry) {
+//                registry.addInterceptor(new LoginHandlerInterceptor(userService)).addPathPatterns("/**")
+//                        .excludePathPatterns("/login", "/index.html", "/register","/user/login","/"
+//                                ,"/user/register","/register.html","/addUser","/static/**","/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
+//                                "/**/*.jpeg", "/**/*.gif", "/**/fonts/*", "/**/*.svg","/findpassword","/sendEmail",
+//                        "/changepw","/semagain","/change");
+//
+//
+//            }
 
 
         };

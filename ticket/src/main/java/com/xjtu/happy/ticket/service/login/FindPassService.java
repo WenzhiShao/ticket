@@ -19,4 +19,10 @@ public class FindPassService {
             String nowEmail = findPassMapper.checkUser(username);
             return nowEmail;
     }
+    public  boolean changepw(String userName,String password){
+        if(findPassMapper.changePw(userName,password)){
+            return true;
+        }
+        return false;
+    }
 }

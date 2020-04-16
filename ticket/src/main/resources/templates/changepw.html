@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>找回密码</title>
+    <!-- Custom styles for this template -->
+    <link href="../css/signin.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet" >
+    <script type="text/javascript" src="../jquery-3.4.1/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/changepw.js"></script>
+</head>
+
+<body class="text-center">
+
+<form class="form-signin" th:action="@{/change}" method="post">
+    <div class="clear"> </div>
+    <div class="lable-2">
+        <h3 class="h3 mb-3 font-weight-normal">修改密码</h3>
+    <input type="text" name="mailCode"  class="form-control" placeholder="验证码" required="" onfocus="">
+        <div>
+            <p></p>
+        </div>
+    <input type="password" class="form-control" id="password" name="password" placeholder="密码不能是纯数字" onfocus="this.value = '';" required="" onblur="checkPassword()">
+    <div>
+        <p id="passwordInfo"></p>
+    </div>
+    <input type="password" class="form-control" id="repassword" name="repassword" placeholder="再次确认密码" onfocus="this.value = '';" required="" onblur="checkRepwd()">
+    <div>
+        <p id="repasswordInfo"></p>
+    </div>
+    </div>
+    <div class="checkbox mb-3">
+
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">提交</button>
+    <a class="btn btn-link" href="login">返回登录界面</a>
+    <p style="color: red" th:text="${session.msgOfChangePw}"></p>
+    <a class="btn btn-link" th:action="@{/semagain}">未收到验证码？请点击这里</a>
+    <p class="mt-5 mb-3 text-muted">© 2020-2021</p>
+    <a class="btn btn-sm">中文</a>
+</form>
+
+</body>
+<script type="text/javascript">
+    function checkPassword() {
+        var pattern = /^[0-9]{1,20}$/;
+        console.log($("#password").val());
+        console.log(pattern.exec($("#password").val()));
+        if (!pattern.exec($("#password").val())){
+            $('#passwordInfo').css("color","green");
+            data="√";
+        }else {
+            $('#passwordInfo').css("color","red");
+            data="请输入正确格式的密码";
+        }
+        $('#passwordInfo').html(data);
+    }
+    function checkRepwd() {
+
+        console.log($("#password").val());
+        console.log($("#repassword").val());
+        if ( $("#password").val()===$("#repassword").val()){
+            $('#repasswordInfo').css("color","green");
+            data2="√";
+        }else {
+            $('#repasswordInfo').css("color","red");
+            data2="请再次确认密码";
+        }
+        $('#repasswordInfo').html(data2);
+    }
+</script>
+</html>

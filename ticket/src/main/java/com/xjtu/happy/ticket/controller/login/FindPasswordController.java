@@ -65,7 +65,7 @@ public class FindPasswordController {
     @Resource
     private JavaMailSenderImpl mailSender;
         @RequestMapping(value = "/sendEmail")
-        public String checkUserName(HttpServletRequest request , Model model, Map<String,Object> map, HttpSession session, HttpServletResponse response){
+        public String checkUserName(HttpServletRequest request , HttpSession session, HttpServletResponse response){
             String userName = request.getParameter("userName");
             String verifyCode = request.getParameter("verify-code");
             String sessionVerifyCode = (String) request.getSession().getAttribute("verifyCode");
