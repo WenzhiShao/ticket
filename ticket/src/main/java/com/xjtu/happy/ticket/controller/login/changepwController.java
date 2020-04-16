@@ -47,7 +47,7 @@ public class changepwController {
 
     @Resource
     private JavaMailSenderImpl mailSender;
-    @RequestMapping(value = "/semagain")
+    @RequestMapping(value = "/sendemailagain")
     public String semagain(HttpServletRequest request , HttpSession session, HttpServletResponse response){
         //获取用户名
         String userName = (String) request.getSession().getAttribute("changeUser");
@@ -64,12 +64,23 @@ public class changepwController {
         //正文
         message2.setText("尊敬的用户"+userName+"您好，您的验证码为："+mailCode+"。如非您本人操作，请忽略此邮件");
         mailSender.send(message2);
-        System.out.println(mailCode);
-        //将验证码存在cookie中
-        Cookie mailCodeCookie = new Cookie("mailCode", mailCode);
-        mailCodeCookie.setMaxAge(60*5);//保存5min
-        mailCodeCookie.setPath("/");//所有路径
-        response.addCookie(mailCodeCookie);
+        //将新验证码存在cookie中
+        Cookie[] cookies = request.getCookies();
+        if(cookies!=null){
+        for (Cookie c:cookies){
+            if(c.getName().equals("mailCode")){
+                c.setValue(mailCode);
+                response.addCookie(c);
+            }
+        }
+        }else {
+            Cookie mailCodeCookie = new Cookie("mailCode", mailCode);
+            mailCodeCookie.setMaxAge(60*5);//保存5min
+            mailCodeCookie.setPath("/");//所有路径
+            response.addCookie(mailCodeCookie);
+        }
+
         return "redirect:/changepw";
     }
+
 }

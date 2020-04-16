@@ -39,7 +39,7 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit">提交</button>
     <a class="btn btn-link" href="login">返回登录界面</a>
     <p style="color: red" th:text="${session.msgOfChangePw}"></p>
-    <a class="btn btn-link" th:action="@{/semagain}">未收到验证码？请点击这里</a>
+    <a class="col-auto" href="/sendemailagain">未收到验证码？请点击这里</a>
     <p class="mt-5 mb-3 text-muted">© 2020-2021</p>
     <a class="btn btn-sm">中文</a>
 </form>
