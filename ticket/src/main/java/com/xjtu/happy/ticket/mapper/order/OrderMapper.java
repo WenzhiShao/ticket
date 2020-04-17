@@ -20,6 +20,7 @@ public interface OrderMapper {
 	@Insert("INSERT INTO orders(orderNo,orderTime,trainId,ticektNum,totalPrice,orderStatus,orderUserId) VALUES(#{orderNo},#{orderTime},#{trainId},#{ticektNum},#{totalPrice},#{orderStatus},#{orderUserId})")
 	public void saveOrder(Orders order);
 
+	//更新订单状态
 	@Update("UPDATE orders SET orderStatus = 'paid' where orderNo = #{orderNo}")
 	public int UpdateOrderStatus(String orderNo);
 	

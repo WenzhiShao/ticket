@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/mystyle.css}"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <meta name="viewport" content="width">
+    <title>改签页面</title>
+</head>
+<body class="w-100">
+<div class="row w-100 p-0 ">
+    <div class="col justify-content-start ">
+        <a href="#"><img th:src="@{/image/微信截图_20200404211502.png}" style="height: 5rem"></a>
+    </div>
+    <div class="col btn-group justify-content-end align-items-center">
+        <div class="row">
+            <div class="col-auto" th:text="${session.loginUser}"></div>
+            <a class="col-auto" href="/logout">退出登录</a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="card flex-column">
+        <div class="card-body m-0">
+            <div class="card-header bg-primary text-white">原票信息</div>
+        </div>
+        <div class="card-text m-2 row border-bottom">
+
+            <div class="col-auto" th:text="${session.oldtikcet.travelTime}"></div>
+            <div class="col-auto" th:text="${session.oldtikcet.trainNum}"></div>
+            <div class="col-auto" th:text="${session.oldtikcet.startStationName}"></div>
+            <div class="col-auto" th:text="${session.oldtikcet.startTime}"></div>
+            <div class="col-auto" th:text="${session.oldtikcet.endStationName}"></div>
+            <div class="col-auto" th:text="${session.oldtikcet.endTime}"></div>
+            <div class="col-auto" th:text="'￥'+${session.oldtikcet.price}"></div>
+        </div>
+    </div>
+    <div class="card flex-column">
+        <div class="card-body m-0">
+            <div class="card-header bg-primary text-white">列车信息</div>
+        </div>
+        <div class="card-text m-2 row border-bottom">
+
+            <div class="col-auto" th:text="${session.ticketSelected.travelTime}"></div>
+            <div class="col-auto" th:text="${session.ticketSelected.trainNum}"></div>
+            <div class="col-auto" th:text="${session.ticketSelected.startStationName}"></div>
+            <div class="col-auto" th:text="${session.ticketSelected.startTime}"></div>
+            <div class="col-auto" th:text="${session.ticketSelected.endStationName}"></div>
+            <div class="col-auto" th:text="${session.ticketSelected.endTime}"></div>
+        </div>
+        <div class="card-text m-2 row">
+            <div class="col-auto" th:text="'A座(￥'+${session.ticketSelected.APrice}+') 剩余：'+${session.ticketSelected.A}"></div>
+            <div class="col-auto" th:text="'B座(￥'+${session.ticketSelected.BPrice}+') 剩余：'+${session.ticketSelected.B}"></div>
+            <div class="col-auto" th:text="'C座(￥'+${session.ticketSelected.CPrice}+') 剩余：'+${session.ticketSelected.C}"></div>
+        </div>
+    </div>
+    <div class="card flex-column">
+        <div class="card-body m-0">
+            <div class="card-header bg-primary text-white">乘客信息</div>
+        </div>
+        <form th:action="@{/submitRebook}" method="post">
+            <table class="table ">
+                <thead class="text-center">
+                <tr>
+                    <th>序号</th>
+                    <th>票种</th>
+                    <th>等级</th>
+                    <th>姓名</th>
+                    <th>证件类型</th>
+                    <th>证件号码</th>
+                    <th>手机号码</th>
+                </tr>
+                </thead>
+                <tbody class="text-center">
+                <tr>
+                    <td class="tcel">1</td>
+                    <td class="tcel">
+                        <select name="ticketType" required="">
+                            <option value="成人票">成人票</option>
+                            <option value="学生票">学生票</option>
+                            <option value="儿童票">儿童票</option>
+                        </select>
+                    </td>
+                    <td class="tcel">
+                        <select name="seatType" required="">
+                            <option value="A">A座</option>
+                            <option value="B">B座</option>
+                            <option value="C">C座</option>
+                        </select>
+                    </td>
+                    <td class="tcel">
+                        <input name="name" type="text" required="">
+                    </td>
+                    <td class="tcel">
+                        <select name="identityType" required="">
+                            <option value="居民身份证">居民身份证</option>
+                        </select>
+                    </td>
+                    <td class="tcel">
+                        <input name="identityNum" type="text" required="">
+                    </td>
+                    <td class="tcel">
+                        <input name="phone" type="text" required="">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="d-flex justify-content-center" style="color:red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-info" >确认改签</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

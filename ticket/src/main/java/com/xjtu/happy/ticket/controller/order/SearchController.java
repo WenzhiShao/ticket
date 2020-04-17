@@ -68,17 +68,27 @@ public class SearchController {
         return "redirect:/login";
     }
 
-    //进入预订页面
+    //进入预订或改签页面
     @RequestMapping(value ="/o",method = RequestMethod.GET)
     public String turnToOrder(HttpServletRequest req, @RequestParam Integer trainId,@RequestParam java.sql.Date time){
     	HttpSession session=req.getSession();
-
-    	TicketLeft ticketSelected = query.odTickets(trainId,time);
-    	ticketSelected.setTravelTime(time);
-        session.setAttribute("ticketSelected", ticketSelected);
-    
-        return "order";
-
+        String orderNoR = (String)session.getAttribute("orderNoR");
+        //预订
+        if(orderNoR == null || orderNoR.isEmpty()) {
+            TicketLeft ticketSelected = query.odTickets(trainId, time);
+            ticketSelected.setTravelTime(time);
+            session.setAttribute("ticketSelected", ticketSelected);
+            return "order";
+        }
+        //改签
+        else {
+            TicketLeft ticketSelected = query.odTickets(trainId, time);
+            ticketSelected.setTravelTime(time);
+            TicketLeft oldTicket = new TicketLeft();
+            session.setAttribute("oldtikcet", oldTicket);
+            session.setAttribute("ticketSelected", ticketSelected);
+            return "rebook";
+        }
     }
  
     //进入查票页面
@@ -96,6 +106,7 @@ public class SearchController {
                 session.setAttribute("isMsgNullListExit",2);
             }
         }
+        //session.removeAttribute("orderNoR");
         List<Station> stations = stationService.FindAllStations();
         model.addAttribute("stations", stations);
         Cookie[] cookies = request.getCookies();

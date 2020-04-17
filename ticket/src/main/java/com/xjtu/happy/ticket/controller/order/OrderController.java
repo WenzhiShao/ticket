@@ -95,9 +95,14 @@ public class OrderController {
 
 	//订单查询，跳转到订单查询页面
 	@RequestMapping("/orders")
-	public String submitOrder(Model model,HttpServletRequest req){
+	public String getOrders(Model model,HttpServletRequest req){
 		return "orders";
 	}
 
-
+	//改签操作
+	@RequestMapping("/submitRebook")
+	public String submitRebook(Model model,HttpServletRequest req)
+	{
+		return "orders";
+	}
 }
