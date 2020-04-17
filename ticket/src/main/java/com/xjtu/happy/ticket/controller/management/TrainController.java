@@ -173,20 +173,31 @@ public class TrainController {
         List<TrainType> trainTypes = trainTypeService.FindAllTrainTypes();
         List<Station> stations = stationService.FindAllStations();
         Price price = priceService.FindPriceByTrainAndStation(train.getStartStationid(),train.getEndStationid(),train.getTrainTypeId());
-        System.out.println(""+price.getAPrice()+price.getBPrice()+price.getCPrice());
         model.addAttribute("trainTypes", trainTypes);
         model.addAttribute("stations", stations);
         model.addAttribute("price", price);
 
-        return "addtrain";
+        return "updatetrain";
     }
 
-
+    //修改列车信息
     @PutMapping("/train")
     public String updateTrain(Train train){
 
         System.out.println("列车数据：" + train);
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        return "redirect:/trains";
+    }
+
+    //删除列车信息
+    @PostMapping("/train/{trainNum}")
+    public String deleteTrain(@PathVariable("trainNum") String trainNum,
+                              Model model){
+        Train train = trainService.FindTrainByNum(trainNum);
+        boolean success = trainService.DeleteTrainById(train.getTrainId());
+        if (!success){
+            model.addAttribute("deletemsg", "删除失败");
+        }
         return "redirect:/trains";
     }
 
