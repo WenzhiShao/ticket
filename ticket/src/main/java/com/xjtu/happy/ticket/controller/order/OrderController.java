@@ -75,7 +75,7 @@ public class OrderController {
 			model.addAttribute("msg", seatType+"座票已售空");
 			return "order";
 		}
-
+		
 		model.addAttribute("ticketType", ticketType);
 		model.addAttribute("seatTypeNo", seatType+ticketSeat.getSeatNo());
 		model.addAttribute("name", name);
@@ -89,15 +89,20 @@ public class OrderController {
 		session.setAttribute("name",name);
 		session.setAttribute("identityNum",identityNum);
 		return "pay";
-
-
+		
+		
 	}
 
 	//订单查询，跳转到订单查询页面
-	//@RequestMapping("/orders")
-	//public String submitOrder(Model model,HttpServletRequest req){
-		//return "orders";
-	//}
+	@RequestMapping("/orders")
+	public String getOrders(Model model,HttpServletRequest req){
+		return "orders";
+	}
 
-
+	//改签操作
+	@RequestMapping("/submitRebook")
+	public String submitRebook(Model model,HttpServletRequest req)
+	{
+		return "orders";
+	}
 }

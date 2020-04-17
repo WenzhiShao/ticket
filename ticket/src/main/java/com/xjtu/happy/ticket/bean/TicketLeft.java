@@ -39,6 +39,7 @@ public class TicketLeft {
     private BigDecimal APrice;
     private BigDecimal BPrice;
     private BigDecimal CPrice;
+    private BigDecimal Price;
 
     public String setSpendTime() throws ParseException {
         long time = this.endTime.getTime() - this.startTime.getTime();
@@ -167,4 +168,12 @@ public class TicketLeft {
 	public void setCPrice(BigDecimal cPrice) {
 		CPrice = cPrice;
 	}
+
+    public BigDecimal getPrice() {
+        return Price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        Price = price;
+    }
 }
