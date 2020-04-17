@@ -30,4 +30,10 @@ public class TrainService {
     public int CountOfTrains() {
         return trainMapper.CountOfTrains();
     }
+    public boolean DeleteTrainById(int trainId){
+        if (trainMapper.DeleteTrainById(trainId) >= 1)
+            return true;
+        else
+            return false;
+    }
 }
