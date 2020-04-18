@@ -2,9 +2,12 @@ package com.xjtu.happy.ticket.bean;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.event.EventListenerFactory;
 
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Getter
@@ -195,5 +198,33 @@ public class Ticket {
 
     public void setTicketUserId(int ticketUserId) {
         this.ticketUserId = ticketUserId;
+    }
+    //判断车票类型
+    public int orderstatus() throws ParseException {
+        String traveltime=  this.travelTime.toString();
+        String time=this.startTime.toString();
+        //发车时间
+        String starttime=traveltime+' '+time;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date starttime1=df.parse(starttime);
+        Long sT=starttime1.getTime();
+        Long nowtime=System.currentTimeMillis()+60*60*1000;
+        if (nowtime>sT){
+            //时间逾期，不可改票，不可退票
+            return 0;
+        }
+        else {
+            String status=this.ticketStatus;
+            if(status.equals("refunded")){
+                //不可改票，退票成功
+                return 1;
+            }
+            if (status.equals("rebooked")){
+                //改票成功，可以退票
+                return 2;
+            }
+            //正常票,可以改票，可以退票
+            return 3;
+        }
     }
 }

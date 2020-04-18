@@ -1,6 +1,7 @@
 package com.xjtu.happy.ticket.service.order;
 
 import com.xjtu.happy.ticket.bean.SearchOrders;
+import com.xjtu.happy.ticket.bean.Ticket;
 import com.xjtu.happy.ticket.mapper.order.SearchOrdersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,5 +15,8 @@ public class SearchOrdersServe {
     SearchOrdersMapper sercho;
     public List<SearchOrders> serchorder(String username){
         return sercho.searchorder(username);
+    }
+    public Ticket orderTicket(String orderno){
+        return sercho.orderTicket(orderno);
     }
 }
