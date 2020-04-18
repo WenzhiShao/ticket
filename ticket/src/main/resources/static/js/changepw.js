@@ -25,3 +25,59 @@ function checkRepwd() {
     }
     $('#repasswordInfo').html(data2);
 }
+function isCardNo() {
+    // $.post({
+    //     url:"/register",
+    //     data:{"num":$("#identityNum").val()},
+    //     success:function (data) {
+    //         console.log(data);
+    //         var pattern = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+    //         if(data.toString()=='√' ){
+    //             $('#identityInfo').css("color","green");
+    //         }
+    //         else {
+    //             $('#identityInfo').css("color","red");
+    //         }
+    //         $('#identityInfo').html(data);
+    //
+    //     }
+    //     }
+    // )
+    var pattern = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+    // console.log($("#identityNum").val());
+    // console.log(pattern.test($("#identityNum")));
+    if (pattern.test($("#identityNum").val())){
+        $('#identityInfo').css("color","green");
+        data="√";
+    }else {
+        $('#identityInfo').css("color","red");
+        data="请输入正确身份证号";
+    }
+    $('#identityInfo').html(data);
+}
+function checkemail() {
+    var pattern = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+    console.log($("#email").val());
+    console.log(pattern.test($("#email")));
+    if (pattern.test($("#email").val())){
+        $('#emailInfo').css("color","green");
+        data="√";
+    }else {
+        $('#emailInfo').css("color","red");
+        data="请输入正确格式的邮箱";
+    }
+    $('#emailInfo').html(data);
+}
+function checkphone() {
+    var pattern = /^[1]([3-9])[0-9]{9}$/;
+    console.log($("#phone").val());
+    console.log(pattern.test($("#phone")));
+    if (pattern.test($("#phone").val())){
+        $('#phoneInfo').css("color","green");
+        data="√";
+    }else {
+        $('#phoneInfo').css("color","red");
+        data="请输入正确格式的手机号";
+    }
+    $('#phoneInfo').html(data);
+}

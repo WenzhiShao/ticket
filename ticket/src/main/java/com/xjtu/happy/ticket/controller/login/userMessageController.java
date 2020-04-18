@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.mail.Session;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,9 +22,15 @@ public class userMessageController {
     LoginService loginService;
     @GetMapping("/usermessage")
     public String usermessage( HttpServletRequest request, Model model){
-        String loginUser=(String) request.getSession().getAttribute("loginUser");
-        User user= loginService.GetUserByname(loginUser);
-        model.addAttribute("loginUser", user);
+        Cookie[] cookies = request.getCookies();
+        for(Cookie c:cookies){
+            if(c.getName().equals("userName")){
+                String loginUser=c.getValue();
+                User user= loginService.GetUserByname(loginUser);
+                model.addAttribute("loginUser", user);
+            }
+        }
+
         return "usermessage";
     }
 

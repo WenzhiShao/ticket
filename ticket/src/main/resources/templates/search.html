@@ -30,7 +30,8 @@
     </div>
     <div class="col btn-group justify-content-end align-items-center">
         <div class="row">
-            <div class="col-auto" th:text="${session.loginUser}"></div>
+            <div class="col-auto" th:text="${session.loginUser}" ></div>
+            <a class="col-auto" href="/usermessage">个人信息</a>
             <a class="col-auto" href="/logout">退出登录</a>
 
         </div>
