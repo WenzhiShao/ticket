@@ -32,6 +32,9 @@ public class SearchController {
     @Autowired
     StationService stationService;
 
+    @Autowired
+    OrderService orderService;
+
     @RequestMapping("/index/list")
     public String querytickets(HttpServletRequest request, Model model, int startStationid , int endStationid,String date) throws ParseException {
         SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd");
@@ -84,9 +87,11 @@ public class SearchController {
         else {
             TicketLeft ticketSelected = query.odTickets(trainId, time);
             ticketSelected.setTravelTime(time);
-            TicketLeft oldTicket = new TicketLeft();
-            session.setAttribute("oldtikcet", oldTicket);
             session.setAttribute("ticketSelected", ticketSelected);
+
+            TicketLeft oldTicket = orderService.getOldTicketByOrderNo(orderNoR);
+            session.setAttribute("oldtikcet", oldTicket);
+
             return "rebook";
         }
     }
@@ -106,7 +111,13 @@ public class SearchController {
                 session.setAttribute("isMsgNullListExit",2);
             }
         }
-        //session.removeAttribute("orderNoR");
+        /*
+        //非改签则清理掉orderNoRD的Session
+        String rebook = (String)model.getAttribute("rebook");
+        if(rebook == null || rebook.isEmpty())
+        {
+            session.removeAttribute("orderNoR");
+        }*/
         List<Station> stations = stationService.FindAllStations();
         model.addAttribute("stations", stations);
         Cookie[] cookies = request.getCookies();

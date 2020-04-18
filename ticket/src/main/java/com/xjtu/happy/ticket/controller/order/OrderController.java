@@ -6,7 +6,9 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.xjtu.happy.ticket.bean.*;
 import com.xjtu.happy.ticket.service.login.*;
+import com.xjtu.happy.ticket.service.management.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.Cookie;
-import com.xjtu.happy.ticket.bean.Orders;
-import com.xjtu.happy.ticket.bean.Ticket;
-import com.xjtu.happy.ticket.bean.TicketLeft;
-import com.xjtu.happy.ticket.bean.TicketSeat;
-import com.xjtu.happy.ticket.bean.User;
+
 import com.xjtu.happy.ticket.service.order.*;
 import com.xjtu.happy.ticket.service.login.*;
 
@@ -33,6 +31,8 @@ public class OrderController {
 	OrderService orderService;
 	@Autowired
 	LoginService loginService;
+	@Autowired
+	TrainService trainService;
 
     //提交订单，跳转到支付页面
 	@PostMapping("/submitOrder")
@@ -95,8 +95,46 @@ public class OrderController {
 
 	//改签操作
 	@RequestMapping("/submitRebook")
-	public String submitRebook(Model model,HttpServletRequest req)
+	public String submitRebook(Model model,HttpServletRequest req,
+							   @RequestParam("ticketType") String ticketType,@RequestParam("seatType") String seatType,
+							   @RequestParam("name") String name,@RequestParam("identityType") String identityType,
+							   @RequestParam("identityNum") String identityNum,@RequestParam("phone") String phone)
 	{
-		return "orders";
+		HttpSession session=req.getSession();
+		TicketLeft ticketSelected=(TicketLeft)session.getAttribute("ticketSelected");
+		String orderNoR = (String)session.getAttribute("orderNoR");
+
+		Cookie[] cookies = req.getCookies();
+		String strName = "";
+		for (Cookie cookie : cookies) {
+			switch(cookie.getName()){
+				case "userName":
+					strName = cookie.getValue();
+					break;
+				default:
+					break;
+			}
+		}
+		User operateUser = loginService.GetUserByname(strName);
+		Train train = trainService.FindTrainById(ticketSelected.getTrainId());
+
+		Ticket newTicket = new Ticket();
+		newTicket.setOrderNo(orderNoR);
+		newTicket.setTrainNum(train.getTrainNum());
+		newTicket.setTravelTime(ticketSelected.getTravelTime());
+		newTicket.setPrice(seatType=="A"?ticketSelected.getAPrice():(seatType=="B"?ticketSelected.getBPrice():ticketSelected.getCPrice()));
+		newTicket.setName(name);
+		newTicket.setIdentityNum(identityNum);
+		newTicket.setStartTime(train.getStartTime());
+		newTicket.setEndTime(train.getEndTime());
+		newTicket.setStartStationid(train.getStartStationid());
+		newTicket.setEndStationid(train.getEndStationid());
+		newTicket.setStartStationName(train.getStartStationName());
+		newTicket.setEndStationName(train.getEndStationName());
+		newTicket.setTicketStatus("rebooked");
+		newTicket.setTicketUserId(operateUser.getUserId());
+		if (orderService.rebookTicket(orderNoR,newTicket,ticketSelected.getTrainId(),seatType,ticketSelected.getTravelTime()))
+			return "orders";
+		return "rebook";
 	}
 }
