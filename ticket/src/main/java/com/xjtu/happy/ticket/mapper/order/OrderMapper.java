@@ -3,6 +3,7 @@ package com.xjtu.happy.ticket.mapper.order;
 import java.util.Date;
 
 import com.xjtu.happy.ticket.bean.Ticket;
+import com.xjtu.happy.ticket.bean.TicketLeft;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,6 +21,7 @@ public interface OrderMapper {
 	@Insert("INSERT INTO orders(orderNo,orderTime,trainId,ticektNum,totalPrice,orderStatus,orderUserId) VALUES(#{orderNo},#{orderTime},#{trainId},#{ticektNum},#{totalPrice},#{orderStatus},#{orderUserId})")
 	public void saveOrder(Orders order);
 
+	//更新订单状态
 	@Update("UPDATE orders SET orderStatus = 'paid' where orderNo = #{orderNo}")
 	public int UpdateOrderStatus(String orderNo);
 	
@@ -35,4 +37,19 @@ public interface OrderMapper {
 	@Insert("INSERT INTO ticket(orderNo,trainNum,seatId,seatNo,travelTime,price,name,identityNum,startTime,endTime,startStationid,startStationName,endStationid,endStationName,ticketStatus,ticketUserId) " +
 			"VALUES(#{orderNo},#{trainNum},#{seatId},#{seatNo},#{travelTime},#{price},#{name},#{identityNum},#{startTime},#{endTime},#{startStationid},#{startStationName},#{endStationid},#{endStationName},#{ticketStatus},#{ticketUserId})")
 	public int InsertTicket(Ticket ticket);
+
+	//根据订单号查询原有票信息
+	@Select("select travelTime,trainNum,startStationName,startTime,endStationName,endTime,price from ticket where orderNo = #{orderNo}  limit 1")
+	public TicketLeft getOldTicketByOrderNo(String orderNo);
+
+	//根据订单号退原票
+	@Update("update ticket set ticketStatus = 'refunded'\n" +
+			"where orderNo = #{orderNo};")
+	public int returnOldTicket(String orderNo);
+
+	//根据订单号修改原座位状态
+	@Update("update ticketseat s set ticketSeatStatus = 'normal'\n" +
+			"inner join ticket on ticket.seatId = s.seatId\n" +
+			"where ticket.orderNo = #{orderNo}")
+	public int returnOldSeat(String orderNo);
 }

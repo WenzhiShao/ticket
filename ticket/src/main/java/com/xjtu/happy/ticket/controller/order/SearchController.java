@@ -32,6 +32,9 @@ public class SearchController {
     @Autowired
     StationService stationService;
 
+    @Autowired
+    OrderService orderService;
+
     @RequestMapping("/index/list")
     public String querytickets(HttpServletRequest request, Model model, int startStationid , int endStationid,String date) throws ParseException {
         SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd");
@@ -68,17 +71,29 @@ public class SearchController {
         return "redirect:/login";
     }
 
-    //进入预订页面
+    //进入预订或改签页面
     @RequestMapping(value ="/o",method = RequestMethod.GET)
     public String turnToOrder(HttpServletRequest req, @RequestParam Integer trainId,@RequestParam java.sql.Date time){
     	HttpSession session=req.getSession();
+        String orderNoR = (String)session.getAttribute("orderNoR");
+        //预订
+        if(orderNoR == null || orderNoR.isEmpty()) {
+            TicketLeft ticketSelected = query.odTickets(trainId, time);
+            ticketSelected.setTravelTime(time);
+            session.setAttribute("ticketSelected", ticketSelected);
+            return "order";
+        }
+        //改签
+        else {
+            TicketLeft ticketSelected = query.odTickets(trainId, time);
+            ticketSelected.setTravelTime(time);
+            session.setAttribute("ticketSelected", ticketSelected);
 
-    	TicketLeft ticketSelected = query.odTickets(trainId,time);
-    	ticketSelected.setTravelTime(time);
-        session.setAttribute("ticketSelected", ticketSelected);
-    
-        return "order";
+            TicketLeft oldTicket = orderService.getOldTicketByOrderNo(orderNoR);
+            session.setAttribute("oldtikcet", oldTicket);
 
+            return "rebook";
+        }
     }
  
     //进入查票页面
@@ -96,6 +111,13 @@ public class SearchController {
                 session.setAttribute("isMsgNullListExit",2);
             }
         }
+        /*
+        //非改签则清理掉orderNoRD的Session
+        String rebook = (String)model.getAttribute("rebook");
+        if(rebook == null || rebook.isEmpty())
+        {
+            session.removeAttribute("orderNoR");
+        }*/
         List<Station> stations = stationService.FindAllStations();
         model.addAttribute("stations", stations);
         Cookie[] cookies = request.getCookies();

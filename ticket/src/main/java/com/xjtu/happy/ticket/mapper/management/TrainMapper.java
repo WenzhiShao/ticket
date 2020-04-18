@@ -1,6 +1,7 @@
 package com.xjtu.happy.ticket.mapper.management;
 
 import com.xjtu.happy.ticket.bean.Train;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -25,4 +26,7 @@ public interface TrainMapper {
 
     @Select("select count(*) from train")
     public int CountOfTrains();
+
+    @Delete("delete from ticket.train where trainId = #{trainId}")
+    public int DeleteTrainById(int trainId);
 }
