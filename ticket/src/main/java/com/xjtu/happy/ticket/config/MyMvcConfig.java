@@ -32,7 +32,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
                         .excludePathPatterns("/login", "/index.html", "/register","/user/login","/"
                                 ,"/user/register","/register.html","/addUser","/static/**","/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
                                 "/**/*.jpeg", "/**/*.gif", "/**/fonts/*", "/**/*.svg","/findpassword","/sendEmail","/getVerifyCode",
-                        "/changepw","/sendemailagain","/change","/*.jpeg");
+                        "/changepw","/sendemailagain","/change","/*.jpeg","/usermessage","/changeMessage");
 
 
             }

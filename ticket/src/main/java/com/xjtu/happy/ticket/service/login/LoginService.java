@@ -41,4 +41,34 @@ public class LoginService {
     public User GetUserByname(String name) {
         return loginMapper.FindByname(name);
     }
+    public boolean updateName(String userName,String name){
+        if(loginMapper.updateName(userName,name)){
+            return true;
+        }
+        return false;
+    }
+    public boolean updatePassword(String userName,String password){
+        if(loginMapper.updatePassword(userName,password)){
+            return true;
+        }
+        return false;
+    }
+    public boolean updateIdentityNum(String userName,String identityNum){
+        if(loginMapper.updateIdentityNum(userName,identityNum)){
+            return true;
+        }
+        return false;
+    }
+    public boolean updatePhone(String userName,String phone){
+        if(loginMapper.updatePhone(userName,phone)){
+            return true;
+        }
+        return false;
+    }
+    public boolean updateEmail(String userName,String email){
+        if(loginMapper.updateEmail(userName,email)){
+            return true;
+        }
+        return false;
+    }
 }

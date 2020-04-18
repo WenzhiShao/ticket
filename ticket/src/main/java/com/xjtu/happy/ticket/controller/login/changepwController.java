@@ -25,7 +25,7 @@ public class changepwController {
     @Autowired
     FindPassService findPassService;
     @RequestMapping(value = "/change")
-    public String change(HttpServletRequest request , HttpSession session, HttpServletResponse response){
+    public String change(HttpServletRequest request , HttpSession session){
         String mailCode = request.getParameter("mailCode");
         String password = request.getParameter("password");
         String md5password = DigestUtils.md5DigestAsHex(password.getBytes());
