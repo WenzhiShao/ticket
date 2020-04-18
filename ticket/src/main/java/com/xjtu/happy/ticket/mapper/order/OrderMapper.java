@@ -43,7 +43,7 @@ public interface OrderMapper {
 	public TicketLeft getOldTicketByOrderNo(String orderNo);
 
 	//根据订单号退原票
-	@Update("update ticket set ticketStatus = 'rebooked'\n" +
+	@Update("update ticket set ticketStatus = 'refunded'\n" +
 			"where orderNo = #{orderNo};")
 	public int returnOldTicket(String orderNo);
 
