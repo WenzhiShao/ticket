@@ -29,44 +29,33 @@
     <div class="col btn-group justify-content-end align-items-center">
         <div class="row">
             <div class="col-auto" th:text="${session.loginUser}"></div>
+            <a class="col-auto" th:href="@{/trains}">管理员首页</a>
+
             <a class="col-auto" href="/logout">退出登录</a>
         </div>
     </div>
 </div>
 <div class="nav nav-tabs justify-content-center w-100 p-0 bg-primary">
-    <li class="nav-item text-white"><a class="nav-link text-white" th:href="@{/trains}">车次表</a></li>
-    <li class="nav-item active text-white"><a class="nav-link text-white" th:href="@{/user}">用户表</a></li>
-    <li class="nav-item active text-white" th:if="${session.loginUser == 'mabaicheng'}"><a class="nav-link text-white" th:href="@{/manager}">管理员表</a></li>
+    <li class="nav-item text-white"><a class="nav-link text-white" th:href="@{/blacklist}">黑名单</a></li>
 </div>
 <div class="container mt-1">
-    <h2><a class="btn btn-secondary btn-sm" th:href="@{/train}">添加车次</a></h2>
     <table class="table table-hover table-bordered">
         <thead class="bg-primary text-white">
         <tr>
-            <th class="tcel text-center">车次</th>
-            <th class="tcel text-center">出发地</th>
-            <th class="tcel text-center">目的地</th>
-            <th class="tcel text-center">出发时间</th>
-            <th class="tcel text-center">到达时间</th>
+            <th class="tcel text-center">用户名</th>
+            <th class="tcel text-center">真实姓名</th>
+            <th class="tcel text-center">身份证</th>
             <th class="text-center tcel">操作</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="train:${trains}">
-            <td th:text="${train.trainNum}" ></td>
-            <td th:text="${train.startStationName}"></td>
-            <td th:text="${train.endStationName}"></td>
-            <td th:text="${train.startTime}"></td>
-            <td th:text="${train.endTime}"></td>
+        <tr th:each="blackList:${blackLists}" th:align="center">
+            <td th:text="${blackList.userName}"></td>
+            <td th:text="${blackList.name}"></td>
+            <td th:text="${blackList.identityNum}"></td>
             <td align="center">
-                <div class="form-row">
-                <a class="btn btn-sm btn-primary" th:href="@{/train/} + ${train.trainNum}">编辑</a>
-                <form th:action="@{/train/} + ${train.trainNum}" method="post">
-                    <input type="hidden" value="delete" />
-                    <button class="btn btn-sm btn-danger" type="submit">删除</button>
-                </form>
-                </div>
+                <a  th:href="@{/deleteUser/}+${blackList.id}" class="btn btn-sm btn-danger deleteBtn" >移出黑名单</a>
             </td>
         </tr>
         </tbody>

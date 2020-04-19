@@ -39,38 +39,38 @@
     <li class="nav-item active text-white" th:if="${session.loginUser == 'mabaicheng'}"><a class="nav-link text-white" th:href="@{/manager}">管理员表</a></li>
 </div>
 <div class="container mt-1">
-    <h2><a class="btn btn-secondary btn-sm" th:href="@{/train}">添加车次</a></h2>
+    <h2><a class="btn btn-secondary btn-sm" th:href="@{/registers}">添加管理员</a></h2>
+
     <table class="table table-hover table-bordered">
         <thead class="bg-primary text-white">
         <tr>
-            <th class="tcel text-center">车次</th>
-            <th class="tcel text-center">出发地</th>
-            <th class="tcel text-center">目的地</th>
-            <th class="tcel text-center">出发时间</th>
-            <th class="tcel text-center">到达时间</th>
+            <th class="tcel text-center">用户名</th>
+            <th class="tcel text-center">真实姓名</th>
+            <th class="tcel text-center">身份证</th>
+            <th class="tcel text-center">电话号码</th>
+            <th class="tcel text-center">邮箱</th>
             <th class="text-center tcel">操作</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="train:${trains}">
-            <td th:text="${train.trainNum}" ></td>
-            <td th:text="${train.startStationName}"></td>
-            <td th:text="${train.endStationName}"></td>
-            <td th:text="${train.startTime}"></td>
-            <td th:text="${train.endTime}"></td>
+        <tr th:each="admin:${admins}" th:align="center">
+            <td th:text="${admin.userName}"></td>
+            <td th:text="${admin.name}"></td>
+            <td th:text="${admin.identityNum}"></td>
+            <td th:text="${admin.phone}"></td>
+            <td th:text="${admin.email}"></td>
+
             <td align="center">
-                <div class="form-row">
-                <a class="btn btn-sm btn-primary" th:href="@{/train/} + ${train.trainNum}">编辑</a>
-                <form th:action="@{/train/} + ${train.trainNum}" method="post">
-                    <input type="hidden" value="delete" />
-                    <button class="btn btn-sm btn-danger" type="submit">删除</button>
-                </form>
-                </div>
+                <a th:href="@{/delete/}+${admin.userId}" class="btn btn-sm btn-danger deleteBtn">删除</a>
+
             </td>
         </tr>
         </tbody>
     </table>
+
 </div>
+
+
 </body>
 </html>
