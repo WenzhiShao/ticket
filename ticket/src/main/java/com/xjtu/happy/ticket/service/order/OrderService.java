@@ -55,6 +55,7 @@ public class OrderService {
 		return orderMapper.getOldTicketByOrderNo(orderNo);
 	}
 
+	//改签操作
 	@Transactional(isolation=Isolation.READ_COMMITTED)
 	public boolean rebookTicket(String orderNo,Ticket ticket,int trainId,String seatType,Date time) {
 		TicketSeat newticketSeat=orderMapper.selectSeatByLock(trainId, seatType,time);

@@ -134,7 +134,7 @@ public class OrderController {
 		newTicket.setTicketStatus("rebooked");
 		newTicket.setTicketUserId(operateUser.getUserId());
 		if (orderService.rebookTicket(orderNoR,newTicket,ticketSelected.getTrainId(),seatType,ticketSelected.getTravelTime()))
-			return "orders";
+			return "redirect:/orders";
 		return "rebook";
 	}
 }
