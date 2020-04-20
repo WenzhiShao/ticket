@@ -958,10 +958,12 @@ CREATE TABLE `user` (
   `phone` varchar(11) DEFAULT NULL COMMENT '手机号',
   `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
   `type` varchar(255) NOT NULL COMMENT '用户类型:普通用户，管理员',
+  `activated` boolean DEFAULT TRUE COMMENT '账号激活状态',
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'gzy', 'D3B039EADE6DB21031C208444CFC38EA', null, '666666', '18817555183', '123@qq.com', 'User');
+INSERT INTO `user` VALUES ('1', 'gzy', 'D3B039EADE6DB21031C208444CFC38EA', null, '666666', '18817555183', '123@qq.com', 'User',true);
+INSERT INTO `user` (userName,password,email,phone,name,identityNum,type) VALUES ('superadmin','4297f44b13955235245b2497399d7a93',null,'1111111','123456789','admin@qq.com','admin');
