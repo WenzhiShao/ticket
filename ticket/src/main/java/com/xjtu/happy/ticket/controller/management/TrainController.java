@@ -182,10 +182,21 @@ public class TrainController {
 
     //修改列车信息
     @PutMapping("/train")
-    public String updateTrain(Train train){
-
-        System.out.println("列车数据：" + train);
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    public String updateTrain(@RequestParam("APrice") BigDecimal APrice,
+                              @RequestParam("BPrice") BigDecimal BPrice,
+                              @RequestParam("CPrice") BigDecimal CPrice,
+                              Train train){
+        System.out.println("APrice"+APrice+"BPrice"+BPrice+"CPrice"+CPrice+"trainNum"+train.getTrainNum()+"startTime"+train.getStartTime());
+        int trainId=trainService.FindTrainByNum(train.getTrainNum()).getTrainId();
+        trainService.UpdateTrainById(trainId,train.getStartTime(),train.getEndTime());
+        Price price = new Price();
+        price.setAPrice(APrice);
+        price.setBPrice(BPrice);
+        price.setCPrice(CPrice);
+        price.setStartStationid(train.getStartStationid());
+        price.setEndStationid(train.getEndStationid());
+        price.setTrainTypeId(train.getTrainTypeId());
+        priceService.UpdatePrice(price);
         return "redirect:/trains";
     }
 

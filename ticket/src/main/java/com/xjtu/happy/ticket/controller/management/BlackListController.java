@@ -26,15 +26,10 @@ public class BlackListController {
         return "user";
     }
 
-    @GetMapping("/user/{userId}")
-    public String addBlackList(@PathVariable("userId") int userId, BlackList blackList){
-        User user = usersService.findUser(userId);
-     //   BlackList blackList = new BlackList();
-        blackList.setUserName(user.getUserName());
-        blackList.setPassword(user.getPassword());
-        blackList.setName(user.getName());
-        blackList.setIdentityNum(user.getIdentityNum());
-        blackListService.insertUser(blackList);
+    //修改用户状态
+    @GetMapping("/user/{userId}/{activated}")
+    public String addBlackList(@PathVariable("userId") int userId,@PathVariable("activated") boolean activated){
+        usersService.updateUserStatus(userId,activated);
         return "redirect:/user";
 
     }
