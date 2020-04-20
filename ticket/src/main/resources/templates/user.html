@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="../css/mystyle.css">
-<!--    <link href="https://cdn.staticfile.org/ionic/1.3.2/css/ionic.css" rel="stylesheet">-->
-<!--    <script src="https://cdn.staticfile.org/ionic/1.3.2/js/ionic.bundle.min.js"></script>-->
     <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js"
@@ -60,21 +58,10 @@
             <td th:text="${user.email}"></td>
 
             <td align="center">
-<!--                <a  th:href="@{/user/}+${user.userId}" class="btn btn-sm btn-danger deleteBtn" disabled="disabled" >添加黑名单</a>-->
-<!--                <div class="custom-control custom-switch">-->
-<!--                    <input type="checkbox" class="custom-control-input" id="customSwitch1">-->
-<!--                    <label class="custom-control-label" for="customSwitch1"></label>-->
-<!--                </div>-->
-                <a th:href="@{/user/}+${user.userId}" type="button" th:class="${user.activated}?'btn btn-success btn-sm':'btn btn-danger btn-sm'"
+                <a th:href="@{/user/}+${user.userId}+@{/}+${user.activated}" type="button" th:class="${user.activated}?'btn btn-success btn-sm':'btn btn-danger btn-sm'"
                    th:text="${user.activated}?已激活:未激活">
 
                 </a>
-<!--                    <label class="toggle toggle-positive">-->
-<!--                        <input class="toggle toggle-positive" type="checkbox" checked="">-->
-<!--                        <div class="track">-->
-<!--                            <div class="handle"></div>-->
-<!--                        </div>-->
-<!--                    </label>-->
             </td>
         </tr>
         </tbody>
