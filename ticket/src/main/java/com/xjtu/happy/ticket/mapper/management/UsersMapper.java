@@ -19,7 +19,8 @@ public interface UsersMapper {
     @Delete("delete from user where userId = #{userId}")
     int deleteAdmin(int userId);
 
-    @Update("update user")
+    @Update("update user set activated = #{activated} where userId = #{userId}")
+    int updateUserStatus(int userId, boolean activated);
 
     @Select("select * from user where userId = #{userId}")
     User findUser(int userId);

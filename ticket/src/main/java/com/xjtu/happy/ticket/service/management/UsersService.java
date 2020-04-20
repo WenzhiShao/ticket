@@ -28,7 +28,11 @@ public class UsersService {
 
     public User findUser(int userId){return usersMapper.findUser(userId);}
 
-
-
+    public boolean updateUserStatus(int userId, boolean activated){
+        if(usersMapper.updateUserStatus(userId,!activated)>0)
+            return true;
+        else
+            return false;
+    }
 
 }
