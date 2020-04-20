@@ -13,7 +13,7 @@ public interface UsersMapper {
     @Select("select * from user where type='user'")
     List<User> findAllUser();
 
-    @Select("select * from user where type='admin' and userName != 'mabaicheng'")
+    @Select("select * from user where type='admin' and userName != 'superadmin'")
     List<User> findAllAdmin();
 
     @Delete("delete from user where userId = #{userId}")
