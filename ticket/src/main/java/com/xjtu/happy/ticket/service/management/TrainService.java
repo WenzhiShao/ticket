@@ -5,6 +5,7 @@ import com.xjtu.happy.ticket.mapper.management.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.util.List;
 
 @Service
@@ -32,6 +33,12 @@ public class TrainService {
     }
     public boolean DeleteTrainById(int trainId){
         if (trainMapper.DeleteTrainById(trainId) >= 1)
+            return true;
+        else
+            return false;
+    }
+    public boolean UpdateTrainById(int trainId, Time startTime, Time endTime){
+        if (trainMapper.UpdateTrainById(trainId, startTime, endTime) >= 1)
             return true;
         else
             return false;

@@ -1,11 +1,9 @@
 package com.xjtu.happy.ticket.mapper.management;
 
 import com.xjtu.happy.ticket.bean.Train;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
+import java.sql.Time;
 import java.util.List;
 
 @Mapper
@@ -29,4 +27,7 @@ public interface TrainMapper {
 
     @Delete("delete from ticket.train where trainId = #{trainId}")
     public int DeleteTrainById(int trainId);
+
+    @Update("update train set startTime = #{startTime}, endTime = #{endTime} where trainId = #{trainId}")
+    public int UpdateTrainById(int trainId, Time startTime, Time endTime);
 }

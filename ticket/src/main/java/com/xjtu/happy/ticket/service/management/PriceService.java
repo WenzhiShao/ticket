@@ -27,4 +27,11 @@ public class PriceService {
         else
             return false;
     }
+
+    public boolean UpdatePrice(Price price){
+        if (priceMapper.UpdatePrice(price) >= 1)
+            return true;
+        else
+            return false;
+    }
 }
