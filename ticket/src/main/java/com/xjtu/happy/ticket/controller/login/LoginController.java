@@ -53,24 +53,32 @@ public class LoginController {
         String md5password = DigestUtils.md5DigestAsHex(password.getBytes());
         boolean user =userService.Identity(userName,md5password);
         boolean player =userService.Check(userName);
+        boolean activated = userService.activated(userName);
         //是否在数据库中
         if (user) {
-            //用户信息写到session里
-            session.setAttribute("loginUser",userName);
-            //把用户信息写入cookie
-            Cookie usernameCookie = new Cookie("userName", userName);
-            usernameCookie.setMaxAge(60*15);//保存15min
-            usernameCookie.setPath("/");//所有路径
-            response.addCookie(usernameCookie);
-            //判断是否是管理员
-            if (!player) {
-                //普通用户
-                model.addAttribute("user", userName);
-                map.put("msg", "登录成功");
-                return "redirect:/search";
+            //检查用户激活状态
+            if (!activated) {
+                session.setAttribute("msgOfLogin", "没有权限");
+                session.setAttribute("exit", 1);
+                return "redirect:/login";
             } else {
-                //是管理员
-                return "redirect:/trains";
+                //用户信息写到session里
+                session.setAttribute("loginUser", userName);
+                //把用户信息写入cookie
+                Cookie usernameCookie = new Cookie("userName", userName);
+                usernameCookie.setMaxAge(60 * 15);//保存15min
+                usernameCookie.setPath("/");//所有路径
+                response.addCookie(usernameCookie);
+                //判断是否是管理员
+                if (!player) {
+                    //普通用户
+                    model.addAttribute("user", userName);
+                    map.put("msg", "登录成功");
+                    return "redirect:/search";
+                } else {
+                    //是管理员
+                    return "redirect:/trains";
+                }
             }
         }
         //登录失败，返回登录页面
