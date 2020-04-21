@@ -22,6 +22,8 @@ public class ManagerController {
     @Resource
     @Autowired
     UsersService usersService;
+
+    @Autowired
     RegisterService registerService;
 
     @GetMapping("/manager")
@@ -41,7 +43,7 @@ public class ManagerController {
        //页面跳转
         @GetMapping("/registers")
         public String Register(){
-            return "register";
+            return "registers";
         }
 
         //管理员注册
@@ -69,7 +71,7 @@ public class ManagerController {
             }
             else
             {
-                return "register";
+                return "registers";
             }
         }
 
