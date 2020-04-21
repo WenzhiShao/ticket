@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!DOCTYPE html>
+
+    <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <link type="text/css" rel="stylesheet" href="../css/mystyle.css">
+<!--        <link href="../css/register.css" rel='stylesheet' type='text/css' />-->
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js"
+                integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+                integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+                crossorigin="anonymous"></script>
+        <script type="text/javascript" src="../jquery-3.4.1/jquery-3.4.1.js"></script>
+
+        <script type="text/javascript" src="js/register.js"></script>
+
+
+        <meta name="viewport" content="width">
+        <title>管理员页面</title>
+    </head>
+<body class="w-100">
+<div class="row w-100 p-0 " >
+    <div class="col justify-content-start ">
+        <a href="#"><img src="../image/微信截图_20200404211502.png" style="height: 5rem"></a>
+    </div>
+    <div class="col btn-group justify-content-end align-items-center">
+        <div class="row">
+            <div class="col-auto" th:text="${session.loginUser}"></div>
+            <a class="col-auto" th:href="@{/trains}">管理员首页</a>
+            <a class="col-auto" href="/logout">退出登录</a>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+
+        function checkUsername() {
+
+            $.post({
+
+                url:"/registers",
+
+                data:{"name":$("#username").val()},
+
+                success:function (data) {
+
+                    console.log(data);
+
+                    if(data.toString()=='√' ){
+
+                        $('#usernameInfo').css("color","green");
+
+                    }
+
+                    else {
+
+                        $('#usernameInfo').css("color","red");
+
+                    }
+
+                    $('#usernameInfo').html(data);
+
+
+
+                }
+
+            })
+
+        }
+
+        //重新提交
+
+        function isCardNo() {
+
+            var pattern = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+
+            // console.log($("#identityNum").val());
+
+            // console.log(pattern.test($("#identityNum")));
+
+            if (pattern.test($("#identityNum").val())){
+
+                $('#identityInfo').css("color","green");
+
+                data="√";
+
+            }else {
+
+                $('#identityInfo').css("color","red");
+
+                data="请输入正确身份证号";
+
+            }
+
+            $('#identityInfo').html(data);
+
+        }
+
+        function checkPassword() {
+
+            var pattern = /^[0-9]{1,20}$/;
+
+            console.log($("#password").val());
+
+            console.log(pattern.exec($("#password").val()));
+
+            if (!pattern.exec($("#password").val())){
+
+                $('#passwordInfo').css("color","green");
+
+                data="√";
+
+            }else {
+
+                $('#passwordInfo').css("color","red");
+
+                data="请输入正确格式的密码";
+
+            }
+
+            $('#passwordInfo').html(data);
+
+        }
+
+        function checkRepwd() {
+
+
+
+            console.log($("#password").val());
+
+            console.log($("#repassword").val());
+
+            if ( $("#password").val()===$("#repassword").val()){
+
+                $('#repasswordInfo').css("color","green");
+
+                data2="√";
+
+            }else {
+
+                $('#repasswordInfo').css("color","red");
+
+                data2="请再次确认密码";
+
+            }
+
+            $('#repasswordInfo').html(data2);
+
+        }
+
+        function checkemail() {
+
+            var pattern = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+
+            console.log($("#email").val());
+
+            console.log(pattern.test($("#email")));
+
+            if (pattern.test($("#email").val())){
+
+                $('#emailInfo').css("color","green");
+
+                data="√";
+
+            }else {
+
+                $('#emailInfo').css("color","red");
+
+                data="请输入正确格式的邮箱";
+
+            }
+
+            $('#emailInfo').html(data);
+
+        }
+
+        function checkphone() {
+
+            var pattern = /^[1]([3-9])[0-9]{9}$/;
+
+            console.log($("#phone").val());
+
+            console.log(pattern.test($("#phone")));
+
+            if (pattern.test($("#phone").val())){
+
+                $('#phoneInfo').css("color","green");
+
+                data="√";
+
+            }else {
+
+                $('#phoneInfo').css("color","red");
+
+                data="请输入正确格式的手机号";
+
+            }
+
+            $('#phoneInfo').html(data);
+
+        }
+
+    </script>
+
+</head>
+
+<div class="main">
+
+    <div class="nav nav-tabs justify-content-center w-100 p-0 bg-primary">
+        <li class="nav-item text-white"><a class="nav-link text-white" th:href="@{/registers}">注册表</a></li>
+    </div>
+
+   <br/>
+   <br/>
+    <div class="container">
+        <div  class="mx-auto" style="width: 600px;">
+          <form th:action = "@{/admin1}" method="post" class="needs-validation" novalidate >
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" class="form-control" id="username" name="username"  onfocus="this.value = '';" required="" onblur="checkUsername()" placeholder="管理员用户名">
+                    <label id="usernameInfo"></label>
+                </div>
+                <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="password">密码</label>
+                    <input type="password" class="form-control" id="password" name="password" onfocus="this.value = '';" required="" onblur="checkPassword()" placeholder="登录密码">
+                    <p id="passwordInfo"></p>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="repassword">确认密码</label>
+                    <input type="password" class="form-control" id="repassword" name="repassword" onfocus="this.value = '';" required="" onblur="checkRepwd()" placeholder="再次输入密码">
+                    <p id="repasswordInfo"></p>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" class="form-control" id="name" name="name" onfocus="this.value = '';"  required="" placeholder="请输入姓名">
+                    <p id="nameInfo"></p>
+                </div>
+                <div class="form-group">
+                    <label for="email">邮箱</label>
+                    <input type="text" class="form-control" id="email" name="email" onfocus="this.value = '';" required="" onblur="checkemail()" placeholder="请输入邮箱">
+                    <p id="emailInfo"></p>
+
+                </div>
+                <div class="form-group">
+                    <label for="password">手机号</label>
+                    <input type="text" class="form-control" id="phone" name="phone" onfocus="this.value = '';"required="" onblur="checkphone()" placeholder="请输入手机号">
+                    <p id="phoneInfo"></p>
+                </div>
+                <div class="form-group">
+                    <label for="identityNum">身份证号</label>
+                    <input type="text" class="form-control" id="identityNum" name="identityNum" onfocus="this.value = '';" required=""onblur="isCardNo()" placeholder="请输入身份证号">
+                    <p id="identityInfo"></p>
+                </div>
+
+<!--            <div class="form-group" align="center">-->
+<!--                <div class="form-check">-->
+<!--                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>-->
+<!--                    <label class="form-check-label" for="invalidCheck">-->
+<!--                        Agree to terms and conditions-->
+<!--                    </label>-->
+<!--                    <div class="invalid-feedback">-->
+<!--                        You must agree before submitting.-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <br/>-->
+                <button class="btn btn-primary" type="submit">注册为管理员</button>
+<!--            </div>-->
+
+           <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function() {
+                    'use strict';
+                    window.addEventListener('load', function() {
+                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                        var forms = document.getElementsByClassName('needs-validation');
+                        // Loop over them and prevent submission
+                        var validation = Array.prototype.filter.call(forms, function(form) {
+                            form.addEventListener('submit', function(event) {
+                                if (form.checkValidity() === false) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                }
+                                form.classList.add('was-validated');
+                            }, false);
+                        });
+                    }, false);
+                })();
+            </script>
+
+             </form>
+           </div>
+         </div>
+         </div>
+       </div>
+ </body>
+</html>
+
+
+
