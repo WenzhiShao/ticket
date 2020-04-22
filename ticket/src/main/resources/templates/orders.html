@@ -7,9 +7,7 @@
     <link type="text/css" rel="stylesheet" th:href="@{/css/mystyle.css}"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js"
-            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../jquery-3.4.1/jquery-3.4.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
@@ -41,8 +39,8 @@
         <div class="card-body m-0">
             <div class="card-header bg-primary text-white">订单信息</div>
             <div class="card-text m-2 row border-bottom">
-                <table class="table table-hover table-bordered">
-                    <thead class="bg-primary text-white">
+                <table class="table table-hover table-bordered" id="table">
+                    <thead class="bg-primary text-white" >
                     <tr>
                         <th class="tcel text-center">订单号</th>
                         <th class="text-center tcel" >车次</th>
@@ -50,6 +48,7 @@
                         <th class="text-center tcel" >订票数量</th>
                         <th class="text-center tcel" >票价</th>
                         <th class="text-center tcel" >状态</th>
+                        <th class="text-center tcel" >操作</th>
                     </tr>
                     </thead>
 
@@ -60,7 +59,11 @@
                         <td class="tcel text-center" th:text="${tk.getOrderTime()}"></td>
                         <td class="tcel text-center" th:text="${tk.getTicektNum()}"></td>
                         <td class="tcel text-center" th:text="${tk.getTotalPrice()}"></td>
-                        <td class="tcel text-center" >-</td>
+                        <td name="state" class="tcel text-center" th:text="${tk.getOrderStatus()=='paid'?'已支付':'未支付'}"></td>
+                        <td>
+                            <a class="btn btn-primary" th:if="${tk.getOrderStatus()=='paid'}" style="width: 100%" th:href="@{/searchOrderTicket(orderno=${tk.getOrderNo()})}">查看详情</a></a>
+                            <a class="btn btn-primary" th:if="${tk.getOrderStatus()=='unpaid'}" style="width: 100%" th:href="@{/gotopay(orderno=${tk.getOrderNo()})}">去支付</a></a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

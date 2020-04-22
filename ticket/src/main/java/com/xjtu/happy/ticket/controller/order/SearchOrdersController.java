@@ -7,19 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.List;
 
 /*查询订单
 * */
 @Controller
 public class SearchOrdersController {
+    //查询订单页面
     @Autowired
     SearchOrdersServe Sorder;
     @RequestMapping("/orders")
@@ -30,9 +29,17 @@ public class SearchOrdersController {
         model.addAttribute("orderlist",serchorder);
         return "orders";
     }
-    @RequestMapping("/searchOrderTicket")
-    @ResponseBody
-    public Ticket SorderTicket(String orderno){
-        return Sorder.orderTicket(orderno);
+    //查询详情返回车票信息
+    @RequestMapping(value = "/searchOrderTicket",method = RequestMethod.GET)
+    public String SorderTicket(HttpServletRequest request,Model model,String orderno) throws ParseException {
+        Ticket ticket = Sorder.orderTicket(orderno);
+        model.addAttribute("ticket",ticket);
+        return "updateTicket";
+    }
+    //转跳到支付界面
+    @RequestMapping("/gotopay")
+    public String gotopay(HttpServletRequest request,Model model,String orderno,HttpSession session){
+        session.setAttribute("orderno",orderno);
+        return "pay";
     }
 }

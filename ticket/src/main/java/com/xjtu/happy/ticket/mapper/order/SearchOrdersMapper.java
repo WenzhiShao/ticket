@@ -18,7 +18,7 @@ public interface SearchOrdersMapper {
             "ORDER BY orderTime DESC")
     public List<SearchOrders> searchorder(String username);
     //通过订单号查询订单下的票的详细信息
-    @Select("SELECT trainNum,travelTime,startTime,endTime,seatNo,name,startStationName,endStationName,ticketStatus\n" +
+    @Select("SELECT trainNum,travelTime,identityNum,startTime,endTime,seatNo,name,startStationName,endStationName,ticketStatus\n" +
             "FROM ticket\n" +
             "WHERE orderNo=#{orderno}\n" +
             "ORDER BY ticketId DESC LIMIT 1")

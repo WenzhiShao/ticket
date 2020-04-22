@@ -29,7 +29,7 @@ public class Ticket {
     private String seatNo;
 
     //乘车日期
-    private Date travelTime;
+    private java.sql.Date travelTime;
 
     //价格
     private BigDecimal price;
@@ -63,6 +63,7 @@ public class Ticket {
 
     //购票用户
     private int ticketUserId;
+    public int orderstate;
 
     public int getTicketId() {
         return ticketId;
@@ -104,11 +105,11 @@ public class Ticket {
         this.seatNo = seatNo;
     }
 
-    public Date getTravelTime() {
+    public java.sql.Date getTravelTime() {
         return travelTime;
     }
 
-    public void setTravelTime(Date travelTime) {
+    public void setTravelTime(java.sql.Date travelTime) {
         this.travelTime = travelTime;
     }
 
@@ -197,8 +198,19 @@ public class Ticket {
     }
 
     public void setTicketUserId(int ticketUserId) {
+
         this.ticketUserId = ticketUserId;
     }
+
+    public int getOrderstate() {
+        return orderstate;
+    }
+
+    public void setOrderstate() throws ParseException {
+        int i = this.orderstatus();
+        this.orderstate = i;
+    }
+
     //判断车票类型
     public int orderstatus() throws ParseException {
         String traveltime=  this.travelTime.toString();
@@ -208,7 +220,7 @@ public class Ticket {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date starttime1=df.parse(starttime);
         Long sT=starttime1.getTime();
-        Long nowtime=System.currentTimeMillis()+60*60*1000;
+        Long nowtime=System.currentTimeMillis();
         if (nowtime>sT){
             //时间逾期，不可改票，不可退票
             return 0;
