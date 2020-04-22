@@ -71,4 +71,11 @@ public class LoginService {
         }
         return false;
     }
+
+    public boolean activated(String userName){
+        if(loginMapper.Activated(userName)==1){
+            return true;
+        }
+        return false;
+    }
 }

@@ -20,7 +20,7 @@ public class AjaxController {
  */
     @RequestMapping("/register")
     @ResponseBody
-   public String ajax1(String name){
+   public String ajax1(String name,String num){
         String msg="";
         System.out.println(name);
         if(!registerService.IsUserExit(name))

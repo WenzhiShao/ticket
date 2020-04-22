@@ -78,4 +78,12 @@ public class OrderService {
 		}
 		return true;
 	}
+	
+	//退票操作
+	@Transactional
+	public boolean returnTicket(String orderNo) {
+		if(orderMapper.returnOldTicket(orderNo)<1)return false;
+		if(orderMapper.returnOldSeat(orderNo)<1)return false;
+		return true;
+	}
 }

@@ -46,10 +46,10 @@ public interface OrderMapper {
 	@Update("update ticket set ticketStatus = 'refunded'\n" +
 			"where orderNo = #{orderNo};")
 	public int returnOldTicket(String orderNo);
-
+	
 	//根据订单号修改原座位状态
-	@Update("update ticketseat s set ticketSeatStatus = 'normal'\n" +
-			"inner join ticket on ticket.seatId = s.seatId\n" +
-			"where ticket.orderNo = #{orderNo}")
+	@Update("UPDATE ticketseat ts INNER JOIN ticket t ON ts.seatId = t.seatId "
+			+ "SET ts.ticketSeatStatus = 'normal'"
+			+ "WHERE t.orderNo = #{orderNo}")
 	public int returnOldSeat(String orderNo);
 }

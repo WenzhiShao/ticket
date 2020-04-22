@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface loginMapper {
-    @Select("select * from user where userName = #{userName} and password = #{password} ")
+    @Select("select * from user where userName = #{userName} and password = #{password}")
     User Identity(String userName, String password);
     @Select("select * from user where userName = #{userName} and type = 'admin'" )
     User Check(String userName);
@@ -24,5 +24,6 @@ public interface loginMapper {
     Boolean updatePhone(String userName,String phone);
     @Update("update user  set email = #{email} where userName=#{userName}")
     Boolean updateEmail(String userName,String email);
-
+    @Select("select activated from user where userName = #{userName}")
+    int Activated(String userName);
 }

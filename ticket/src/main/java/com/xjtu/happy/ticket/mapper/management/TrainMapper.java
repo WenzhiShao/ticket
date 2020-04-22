@@ -25,7 +25,7 @@ public interface TrainMapper {
     @Select("select count(*) from train")
     public int CountOfTrains();
 
-    @Delete("delete from ticket.train where trainId = #{trainId}")
+    @Delete("delete from train where trainId = #{trainId}")
     public int DeleteTrainById(int trainId);
 
     @Update("update train set startTime = #{startTime}, endTime = #{endTime} where trainId = #{trainId}")
