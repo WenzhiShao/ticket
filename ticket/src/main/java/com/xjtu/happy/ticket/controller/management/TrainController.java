@@ -186,7 +186,6 @@ public class TrainController {
                               @RequestParam("BPrice") BigDecimal BPrice,
                               @RequestParam("CPrice") BigDecimal CPrice,
                               Train train){
-        System.out.println("APrice"+APrice+"BPrice"+BPrice+"CPrice"+CPrice+"trainNum"+train.getTrainNum()+"startTime"+train.getStartTime());
         int trainId=trainService.FindTrainByNum(train.getTrainNum()).getTrainId();
         trainService.UpdateTrainById(trainId,train.getStartTime(),train.getEndTime());
         Price price = new Price();
