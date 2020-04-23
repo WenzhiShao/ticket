@@ -48,11 +48,12 @@ public class SearchController {
             session.setAttribute("isMsgNullListExit",1);
 //            model.addAttribute("msg", "暂无列车信息");
             return "redirect:/search";
-        }else {
-            System.out.println(ticketLefts); 
-        model.addAttribute("tickets",ticketLefts);
-        return "ticket";
-    }
+        }
+        else {
+            System.out.println(ticketLefts);
+            model.addAttribute("tickets",ticketLefts);
+            return "ticket";
+        }
     }
 
     @RequestMapping(value = "/logout")
@@ -86,6 +87,7 @@ public class SearchController {
         }
         //改签
         else {
+            session.removeAttribute("orderNoR");
             TicketLeft ticketSelected = query.odTickets(trainId, time);
             ticketSelected.setTravelTime(time);
             session.setAttribute("ticketSelected", ticketSelected);

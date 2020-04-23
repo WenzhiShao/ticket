@@ -49,7 +49,7 @@ public interface OrderMapper {
 	
 	//根据订单号修改原座位状态
 	@Update("UPDATE ticketseat ts INNER JOIN ticket t ON ts.seatId = t.seatId "
-			+ "SET ts.ticketSeatStatus = 'normal'"
+			+ "SET ts.ticketSeatStatus = 'NORMAL'"
 			+ "WHERE t.orderNo = #{orderNo}")
 	public int returnOldSeat(String orderNo);
 }

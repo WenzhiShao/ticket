@@ -102,7 +102,6 @@ public class OrderController {
 		HttpSession session=req.getSession();
 		Ticket oldTicket=(Ticket)session.getAttribute("oldtikcet");
 		TicketLeft ticketSelected=(TicketLeft)session.getAttribute("ticketSelected");
-		String orderNoR = (String)session.getAttribute("orderNoR");
 
 		Cookie[] cookies = req.getCookies();
 		String strName = "";
@@ -119,7 +118,7 @@ public class OrderController {
 		Train train = trainService.FindTrainById(ticketSelected.getTrainId());
 
 		Ticket newTicket = new Ticket();
-		newTicket.setOrderNo(orderNoR);
+		newTicket.setOrderNo(oldTicket.getOrderNo());
 		newTicket.setTrainNum(train.getTrainNum());
 		newTicket.setTravelTime(ticketSelected.getTravelTime());
 		newTicket.setPrice(seatType=="A"?ticketSelected.getAPrice():(seatType=="B"?ticketSelected.getBPrice():ticketSelected.getCPrice()));
@@ -133,7 +132,7 @@ public class OrderController {
 		newTicket.setEndStationName(train.getEndStationName());
 		newTicket.setTicketStatus("rebooked");
 		newTicket.setTicketUserId(operateUser.getUserId());
-		if (orderService.rebookTicket(orderNoR,newTicket,ticketSelected.getTrainId(),seatType,ticketSelected.getTravelTime())) {
+		if (orderService.rebookTicket(oldTicket.getOrderNo(),newTicket,ticketSelected.getTrainId(),seatType,ticketSelected.getTravelTime())) {
 			session.removeAttribute("orderNoR");
 			return "redirect:/orders";
 		}
@@ -141,10 +140,10 @@ public class OrderController {
 	}
 
 	//退票操作
-	@RequestMapping("/returnTicket/{orderNoR}")
-	public String returnTicket(@PathVariable("orderNoR") String orderNoR){
+	@RequestMapping("/returnTicket")
+	public String returnTicket(@RequestParam String orderNoR){
 		orderService.returnTicket(orderNoR);
 
-		return "orders";
+		return "redirect:/orders";
 	}
 }
