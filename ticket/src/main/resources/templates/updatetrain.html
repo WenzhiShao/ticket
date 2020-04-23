@@ -46,10 +46,11 @@
                 <input type="hidden" name="_method" value="put"/>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">列车类型</label>
-                    <select name="trainTypeId" class="form-control" id="exampleFormControlSelect1" >
+                    <select class="form-control" id="exampleFormControlSelect1" readonly>
                         <option value="" disabled selected>请选择</option>
-                        <option disabled th:selected="${train!=null}?${train.trainTypeId == trainType.trainTypeId}" th:each="trainType:${trainTypes}" th:value="${trainType.trainTypeId}" th:text="${trainType.trainTypeId}" readonly></option>
+                        <option disabled th:selected="${train!=null}?${train.trainTypeId == trainType.trainTypeId}" th:each="trainType:${trainTypes}" th:value="${trainType.trainTypeId}" th:text="${trainType.trainTypeId}"></option>
                     </select>
+                    <input name="trainTypeId" type="hidden" th:value="${train.trainTypeId}">
                 </div>
                 <div class="form-group">
                     <label >列车编号</label>
@@ -58,17 +59,19 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="exampleFormControlSelect1">起始站</label>
-                        <select name="startStationid" class="form-control">
+                        <select class="form-control" readonly>
                             <option value="" disabled selected>请选择</option>
-                            <option disabled th:selected="${train!=null}?${station.stationId == train.startStationid}" th:each="station:${stations}" th:value="${station.stationId}" th:text="${station.stationName}" readonly></option>
+                            <option disabled th:selected="${train!=null}?${station.stationId == train.startStationid}" th:each="station:${stations}" th:value="${station.stationId}" th:text="${station.stationName}"></option>
                         </select>
+                        <input name="startStationid" type="hidden" th:value="${train.startStationid}">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="exampleFormControlSelect1">终点站</label>
-                        <select name="endStationid" class="form-control">
+                        <select class="form-control" readonly>
                             <option value="" disabled selected>请选择</option>
-                            <option disabled th:selected="${train!=null}?${station.stationId == train.endStationid}" th:each="station:${stations}" th:value="${station.stationId}" th:text="${station.stationName}" readonly></option>
+                            <option disabled th:selected="${train!=null}?${station.stationId == train.endStationid}" th:each="station:${stations}" th:value="${station.stationId}" th:text="${station.stationName}"></option>
                         </select>
+                        <input name="endStationid" type="hidden" th:value="${train.endStationid}">
                     </div>
                 </div>
                 <div class="form-row">
