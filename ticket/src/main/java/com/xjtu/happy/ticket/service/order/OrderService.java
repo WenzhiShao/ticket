@@ -50,7 +50,7 @@ public class OrderService {
 	}
 
 	//根据订单号获取原票信息
-	public TicketLeft getOldTicketByOrderNo(String orderNo)
+	public Ticket getOldTicketByOrderNo(String orderNo)
 	{
 		return orderMapper.getOldTicketByOrderNo(orderNo);
 	}

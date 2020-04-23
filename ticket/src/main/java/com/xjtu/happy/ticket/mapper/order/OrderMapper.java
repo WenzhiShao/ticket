@@ -39,8 +39,8 @@ public interface OrderMapper {
 	public int InsertTicket(Ticket ticket);
 
 	//根据订单号查询原有票信息
-	@Select("select travelTime,trainNum,startStationName,startTime,endStationName,endTime,price from ticket where orderNo = #{orderNo}  limit 1")
-	public TicketLeft getOldTicketByOrderNo(String orderNo);
+	@Select("select * from ticket where orderNo = #{orderNo}  limit 1")
+	public Ticket getOldTicketByOrderNo(String orderNo);
 
 	//根据订单号退原票
 	@Update("update ticket set ticketStatus = 'refunded'\n" +

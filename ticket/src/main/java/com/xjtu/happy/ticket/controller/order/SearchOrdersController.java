@@ -42,10 +42,10 @@ public class SearchOrdersController {
         session.setAttribute("orderno",orderno);
         return "pay";
     }
-    //跳转到改票页面
+    //跳转到改签页面
     @RequestMapping("/gotoupdate")
-    public String gotoupdate(HttpServletRequest request,Model model,String orderno,HttpSession session){
-        session.setAttribute("orderno",orderno);
-        return "rebook";
+    public String gotoupdate(HttpSession session,Model model, @RequestParam String orderNoR){
+        session.setAttribute("orderNoR",orderNoR);
+        return "redirect:/search";
     }
 }

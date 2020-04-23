@@ -97,11 +97,10 @@ public class OrderController {
 	//改签操作
 	@RequestMapping("/submitRebook")
 	public String submitRebook(Model model,HttpServletRequest req,
-							   @RequestParam("ticketType") String ticketType,@RequestParam("seatType") String seatType,
-							   @RequestParam("name") String name,@RequestParam("identityType") String identityType,
-							   @RequestParam("identityNum") String identityNum,@RequestParam("phone") String phone)
+							   @RequestParam("seatType") String seatType)
 	{
 		HttpSession session=req.getSession();
+		Ticket oldTicket=(Ticket)session.getAttribute("oldtikcet");
 		TicketLeft ticketSelected=(TicketLeft)session.getAttribute("ticketSelected");
 		String orderNoR = (String)session.getAttribute("orderNoR");
 
@@ -124,8 +123,8 @@ public class OrderController {
 		newTicket.setTrainNum(train.getTrainNum());
 		newTicket.setTravelTime(ticketSelected.getTravelTime());
 		newTicket.setPrice(seatType=="A"?ticketSelected.getAPrice():(seatType=="B"?ticketSelected.getBPrice():ticketSelected.getCPrice()));
-		newTicket.setName(name);
-		newTicket.setIdentityNum(identityNum);
+		newTicket.setName(oldTicket.getName());
+		newTicket.setIdentityNum(oldTicket.getIdentityNum());
 		newTicket.setStartTime(train.getStartTime());
 		newTicket.setEndTime(train.getEndTime());
 		newTicket.setStartStationid(train.getStartStationid());
@@ -134,11 +133,14 @@ public class OrderController {
 		newTicket.setEndStationName(train.getEndStationName());
 		newTicket.setTicketStatus("rebooked");
 		newTicket.setTicketUserId(operateUser.getUserId());
-		if (orderService.rebookTicket(orderNoR,newTicket,ticketSelected.getTrainId(),seatType,ticketSelected.getTravelTime()))
+		if (orderService.rebookTicket(orderNoR,newTicket,ticketSelected.getTrainId(),seatType,ticketSelected.getTravelTime())) {
+			session.removeAttribute("orderNoR");
 			return "redirect:/orders";
+		}
 		return "rebook";
 	}
-	
+
+	//退票操作
 	@RequestMapping("/returnTicket/{orderNoR}")
 	public String returnTicket(@PathVariable("orderNoR") String orderNoR){
 		orderService.returnTicket(orderNoR);

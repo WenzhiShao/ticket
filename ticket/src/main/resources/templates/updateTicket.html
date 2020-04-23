@@ -80,12 +80,12 @@
             <td>
                 <a class="text" th:if="${ticket.orderstatus()==0||ticket.orderstatus()==1}" style="width: 100%">不可改签</a></a>
                 <a class="text" th:if="${ticket.orderstatus()==2}" style="width: 100%">改签成功</a></a>
-                <a class="btn btn-primary" th:if="${ticket.orderstatus()==3}" style="width: 100%" th:href="@{/gotoupdate(orderno=${ticket.getOrderNo()})}">改签</a></a>
+                <a class="btn btn-primary" th:if="${ticket.orderstatus()==3}" style="width: 100%" th:href="@{/gotoupdate(orderNoR=${ticket.getOrderNo()})}">改签</a></a>
             </td>
             <td>
                 <a class="text" th:if="${ticket.orderstatus()==0}" style="width: 100%">不可退票</a></a>
                 <a class="text" th:if="${ticket.orderstatus()==1}" style="width: 100%">退票成功</a></a>
-                <a class="btn btn-primary" th:if="${ticket.orderstatus()==3||ticket.orderstatus()==2}" style="width: 100%" th:href="@{/gotoupdate(orderno=${ticket.getOrderNo()})}">退票</a></a>
+                <a class="btn btn-primary" th:if="${ticket.orderstatus()==3||ticket.orderstatus()==2}" style="width: 100%" th:href="@{/returnTicket(orderNoR=${ticket.getOrderNo()})}">退票</a></a>
             </td>
         </tr>
         </tbody>

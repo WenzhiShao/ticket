@@ -76,9 +76,7 @@
                     <th>票种</th>
                     <th>等级</th>
                     <th>姓名</th>
-                    <th>证件类型</th>
                     <th>证件号码</th>
-                    <th>手机号码</th>
                 </tr>
                 </thead>
                 <tbody class="text-center">
@@ -99,18 +97,10 @@
                         </select>
                     </td>
                     <td class="tcel">
-                        <input name="name" type="text" required="">
+                        <text name="name" th:text="${session.oldtikcet.getName()}" ></text>
                     </td>
                     <td class="tcel">
-                        <select name="identityType" required="">
-                            <option value="居民身份证">居民身份证</option>
-                        </select>
-                    </td>
-                    <td class="tcel">
-                        <input name="identityNum" type="text" required="">
-                    </td>
-                    <td class="tcel">
-                        <input name="phone" type="text" required="">
+                        <text name="identityNum" th:text="${session.oldtikcet.getIdentityNum()}"></text>
                     </td>
                 </tr>
                 </tbody>

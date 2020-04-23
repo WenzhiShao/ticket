@@ -2,6 +2,7 @@ package com.xjtu.happy.ticket.controller.order;
 
 
 import com.xjtu.happy.ticket.bean.Station;
+import com.xjtu.happy.ticket.bean.Ticket;
 import com.xjtu.happy.ticket.bean.TicketLeft;
 import com.xjtu.happy.ticket.service.login.LoginService;
 import com.xjtu.happy.ticket.service.management.StationService;
@@ -75,7 +76,7 @@ public class SearchController {
     @RequestMapping(value ="/o",method = RequestMethod.GET)
     public String turnToOrder(HttpServletRequest req, @RequestParam Integer trainId,@RequestParam java.sql.Date time){
     	HttpSession session=req.getSession();
-        String orderNoR = (String)session.getAttribute("orderNoR");
+    	String orderNoR = (String)session.getAttribute("orderNoR");
         //预订
         if(orderNoR == null || orderNoR.isEmpty()) {
             TicketLeft ticketSelected = query.odTickets(trainId, time);
@@ -89,7 +90,7 @@ public class SearchController {
             ticketSelected.setTravelTime(time);
             session.setAttribute("ticketSelected", ticketSelected);
 
-            TicketLeft oldTicket = orderService.getOldTicketByOrderNo(orderNoR);
+            Ticket oldTicket = orderService.getOldTicketByOrderNo(orderNoR);
             session.setAttribute("oldtikcet", oldTicket);
 
             return "rebook";
@@ -111,13 +112,6 @@ public class SearchController {
                 session.setAttribute("isMsgNullListExit",2);
             }
         }
-        /*
-        //非改签则清理掉orderNoRD的Session
-        String rebook = (String)model.getAttribute("rebook");
-        if(rebook == null || rebook.isEmpty())
-        {
-            session.removeAttribute("orderNoR");
-        }*/
         List<Station> stations = stationService.FindAllStations();
         model.addAttribute("stations", stations);
         Cookie[] cookies = request.getCookies();
