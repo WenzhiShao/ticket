@@ -37,6 +37,7 @@ public class userMessageController {
 
     @RequestMapping(value = "/changeMessage")
     public String changeMessage(HttpServletRequest request, HttpSession session){
+        session.removeAttribute("msgOfUpdate");
         String password = request.getParameter("password");         //获取密码
         String md5password = DigestUtils.md5DigestAsHex(password.getBytes()); //将密码加密
         String name = request.getParameter("name");                 //获取姓名
@@ -46,34 +47,18 @@ public class userMessageController {
 
         String userName=(String) request.getSession().getAttribute("loginUser");   //获取用户名
 
+        if( !(name.equals("") && identityNum.equals("")
+            && phone.equals("") && email.equals("") ))
+        {
+            if(loginService.updateUser(userName,name,identityNum,phone,email) <= 0){
+                session.setAttribute("msgOfUpdate","信息更新失败");
+                return "redirect:/usermessage";
+            }
+        }
 
         if(!password.equals("")){                                                       //更改密码
             if(!loginService.updatePassword(userName,md5password)){
                 session.setAttribute("msgOfUpdate","密码更新失败");
-                return "redirect:/usermessage";
-            }
-        }
-        if(!name.equals("")){                                                           //更改姓名
-            if(!loginService.updateName(userName,name)){
-                session.setAttribute("msgOfUpdate","姓名更新失败");
-                return "redirect:/usermessage";
-            }
-        }
-        if(!identityNum.equals("")){                                                    //更改身份证号
-            if(!loginService.updateIdentityNum(userName,identityNum)){
-                session.setAttribute("msgOfUpdate","身份证号更新失败");
-                return "redirect:/usermessage";
-            }
-        }
-        if(!phone.equals("")){                                                          //更改电话
-            if(!loginService.updatePassword(userName,phone)){
-                session.setAttribute("msgOfUpdate","电话更新失败");
-                return "redirect:/usermessage";
-            }
-        }
-        if(!email.equals("")){                                                          //更改邮件
-            if(!loginService.updateEmail(userName,email)){
-                session.setAttribute("msgOfUpdate","邮箱更新失败");
                 return "redirect:/usermessage";
             }
         }

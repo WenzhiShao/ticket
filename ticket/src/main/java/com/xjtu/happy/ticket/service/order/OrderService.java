@@ -1,6 +1,7 @@
 package com.xjtu.happy.ticket.service.order;
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.xjtu.happy.ticket.bean.Ticket;
@@ -73,6 +74,10 @@ public class OrderService {
 		}
 		orderMapper.assignSeatByLock(ticket.getSeatId());
 		if(orderMapper.InsertTicket(ticket) < 1)
+		{
+			return false;
+		}
+		if(orderMapper.updateOrderPrice(ticket.getPrice(),ticket.getOrderNo()) < 1)
 		{
 			return false;
 		}

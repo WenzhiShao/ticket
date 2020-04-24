@@ -78,4 +78,7 @@ public class LoginService {
         }
         return false;
     }
+    public int updateUser(String userName,String name,String identityNum,String phone,String email){
+        return loginMapper.updateUser(userName,name,identityNum,phone,email);
+    }
 }
