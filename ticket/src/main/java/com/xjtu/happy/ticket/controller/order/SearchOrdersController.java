@@ -2,6 +2,7 @@ package com.xjtu.happy.ticket.controller.order;
 
 import com.xjtu.happy.ticket.bean.SearchOrders;
 import com.xjtu.happy.ticket.bean.Ticket;
+import com.xjtu.happy.ticket.bean.User;
 import com.xjtu.happy.ticket.service.order.SearchOrdersServe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -40,6 +41,12 @@ public class SearchOrdersController {
     @RequestMapping("/gotopay")
     public String gotopay(HttpServletRequest request,Model model,String orderno,HttpSession session){
         session.setAttribute("orderno",orderno);
+        User user = Sorder.sUser(orderno);
+        model.addAttribute("ticketType","成人票");
+        model.addAttribute("name",user.getName());
+        model.addAttribute("identityType","居民身份证");
+        model.addAttribute("identityNum", user.getIdentityNum());
+        model.addAttribute("phone", user.getPhone());
         return "pay";
     }
     //跳转到改签页面
