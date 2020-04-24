@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/trainticket?serverTimezone=GMT%2B8 # 驱动类型：协议：//ip地址：端口号/数据库名称?参数（不使用ssl连接）
+    url: jdbc:mysql://192.168.181.128:3306/user?usessl=false&serverTimezone=GMT%2B8 # 驱动类型：协议：//ip地址：端口号/数据库名称?参数（不使用ssl连接）
     username: root
-    password: 19971204d
+    password: 12345
     driver-class-name: com.mysql.cj.jdbc.Driver #jdbc驱动名称
   mvc:
     hiddenmethod:
@@ -12,4 +12,15 @@ server:
   servlet:
     session:
       timeout: 900s #一次会话有效时间
-
+#阿里支付配置
+pay:
+  alipay:
+    APPID: 2016102200735094
+    RSA_PRIVATE_KEY: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCuvBgfL5SyMjEYmlOakxwBcKvWGG7qVU5z+3Hn5/L5tI984tmDKk8VwAg2Nn72N6DtRXxvihylo4BYLovfz3PceteAdEsKltL8YDnwIgFHa1p8TuR0e1WUMFKlcrjC3D2FAR7p3ZdpYprT/VJ8fa7MOiVseYNv04db4hw2VAZPjxUksB91LiGlckf3aA2nY5vZzVMvs7BfcnbAMVuwO0i6vXYrrOIas+Lo1mgD6MdF+S5GTxtc3Bto0nDWniSwX0n8X3BRO5LJpw4oPOeHdO9+dsMhcICdwQP9Iu5FKmbso5PFzVGllV2pMNjlwxGIMyAvepPvBUnzuPss3xUzxWd/AgMBAAECggEBAJocl4HZ62IHVroGUzqACTFT+JrJzfmr55fv65TIRMrr76oMQh+njzz1s8hs5CmxAqSCpq+RtpZ40Ff2JbPuOpf5WFyZNR5PzCJ/lFoxA8PD8Xi19FSv+tjKjfoSZtamfTPzuxo1MLfoGfpi8P+Psj26AwvbWIummzn1AUEBdtdvOyhkpjL2N7vk4mH4QQ9DKuyoh+8X5SI2FdKfH/wRVR9rmdZLn/rrjrI5GpptXcweo8EWqkYWZd5gdq7I9EE1qvvv7sE5YMhwNfJknzE1a4lxK9AtQvrg+lWp89i6jqRXNbZjoPdRxsxGgD3mYlO4WINfJJdrG8r9IlLYFnPQBPECgYEA4epVpWtK5vIhXESkX4c4L0oUk+en7T6rOajn5lVcls6lidd2Kl3yzfxm4N23ESH8va7Nch8K3hn0OjaOtqYLkRL9l+H0/e7hHz6jrH7VnQia02fQEh2erHrWhzHiRz8ZwSBhrcfifi0ceaX1T+cPOkVzKZHYzjvN89y4FzksNssCgYEAxgD25PjVnt+Dj0Wf0bNpiMiAs3wGQGvnqr9pwp3SA6HhH4KK5HVDx9gAZNzVdMx1wdQA6lodeFnVISFwdC/bpRAhkevXvA9kox9NEGJOHDqdZ0p5U/0J3L7brhyv3Erc5CsxuwHe7CRs9zrihubQGh+aRP/Je5yYsHQPY50wx50CgYBYXhQgP2auDXoVIFh3cWn9vWltLUkXWNMbG8GR7EPqTWydDWWQTu1hu1/2h2NLVVMKUyzTfeb/V4Gbn6mVMkAGADqnxV/SUDVIxnS5TWd7JFmDZfESlPlzGB2ABngvTDRjwanTkwM6PaUMxGi/V28yaOYSFZWLngMCZ4yusNNlnwKBgFxNYMr2sObB/VtRsqIYB+9qwIxrGaL4amOvnYbK+XcWBJMi0MqVW8aSjAR46czr700vHkohPjG3duJd60VOdg7piSy0C7qwVlKwqcUkfpMsQ+o9znd3sxxDoLb2yohgIb7/38v0oE3m4SETQzxt5r720nyt3OgR5SAEypO+WFoFAoGAeff5qpltqW5qvDvI1LRARkHN059xNErp1H96LX7CN4VYQfVW0O1AfNT3fOUl6SCbGLe5a7WtRC6NTL2qLIct/4O9qfQ4U75S24QOAni5hG6TmO7gtQHhmCKO+yfkmqT0fyHUuaoUlNC/TI/4w810CMe0BCoMXUd/dCQXHiVXqTo=
+    notify-url: http://192.168.3.53:8080/submitPay  #必须是本机ip不能写127....
+    return-url: http://192.168.3.53:8080/submitPay
+    URL: https://openapi.alipaydev.com/gateway.do
+    CHARSET: UTF-8
+    FORMAT: json
+    ALIPAY_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtbGqgvsDgVGLgXKGuny1dLvLYuOsc+JvJym3I9FVC6jN8Rz4VQyCODi5NXvcXXU5MFeFr+RduV+QtA44VV+8mxKt6HWTcD/ZPlvi8TBJs5OwFXT7dho0CAzaS4C3po+vVmOSsCgcCbNUXewknm2OHRZLEadIF1bq+UFEgpG4PFv23rH0Rj0elzKjLvKPd6ZxKmzGD1dhU6RrY3hVSaDyolQuZv9JF1axFZ2+fD2gxzuPo+jpx4nzRW62/Nhx8a++SLfAftEEUoKWd1r0LJFDpTEw5OtvkRaZtyd+qhJnYjzA7OEllsWqSrMZkFWcERcG2bzut36VvLMX3GqaQ0NebwIDAQAB
+    SIGNTYPE: RSA2

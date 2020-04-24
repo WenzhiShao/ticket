@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,7 @@ public class PayController {
     @Autowired
     LoginService loginService;
 
-    @PostMapping("/submitPay")
+    @RequestMapping("/submitPay")
     public String submitPay(User user, Model model, HttpServletRequest req){
         HttpSession session=req.getSession();
 
