@@ -4,7 +4,12 @@ spring:
     username: root
     password: 19971204d
     driver-class-name: com.mysql.cj.jdbc.Driver #jdbc驱动名称
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 server:
   servlet:
     session:
       timeout: 900s #一次会话有效时间
+
