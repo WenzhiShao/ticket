@@ -1,5 +1,6 @@
 package com.xjtu.happy.ticket.mapper.order;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.xjtu.happy.ticket.bean.Ticket;
@@ -52,4 +53,8 @@ public interface OrderMapper {
 			+ "SET ts.ticketSeatStatus = 'NORMAL'"
 			+ "WHERE t.orderNo = #{orderNo}")
 	public int returnOldSeat(String orderNo);
+
+	//更新订单金额
+	@Update("UPDATE orders set totalPrice = #{totalPrice} where orderNo = #{orderNo}")
+	public int updateOrderPrice(BigDecimal totalPrice,String orderNo);
 }

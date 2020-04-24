@@ -67,7 +67,7 @@ public class OrderController {
 		date.setTime(date.getTime()+8*60*60*1000);
 		order.setOrderTime(date);
 		order.setTicektNum(1);
-		order.setTotalPrice(seatType=="A"?ticketSelected.getAPrice():(seatType=="B"?ticketSelected.getBPrice():ticketSelected.getCPrice()));
+		order.setTotalPrice(seatType.equals("A")?ticketSelected.getAPrice():(seatType.equals("B")?ticketSelected.getBPrice():ticketSelected.getCPrice()));
 		order.setTrainId(ticketSelected.getTrainId());
 		order.setOrderUserId(operateUser.getUserId());
 
@@ -121,7 +121,7 @@ public class OrderController {
 		newTicket.setOrderNo(oldTicket.getOrderNo());
 		newTicket.setTrainNum(train.getTrainNum());
 		newTicket.setTravelTime(ticketSelected.getTravelTime());
-		newTicket.setPrice(seatType=="A"?ticketSelected.getAPrice():(seatType=="B"?ticketSelected.getBPrice():ticketSelected.getCPrice()));
+		newTicket.setPrice(seatType.equals("A")?ticketSelected.getAPrice():(seatType.equals("B")?ticketSelected.getBPrice():ticketSelected.getCPrice()));
 		newTicket.setName(oldTicket.getName());
 		newTicket.setIdentityNum(oldTicket.getIdentityNum());
 		newTicket.setStartTime(train.getStartTime());

@@ -26,4 +26,8 @@ public interface loginMapper {
     Boolean updateEmail(String userName,String email);
     @Select("select activated from user where userName = #{userName}")
     int Activated(String userName);
+
+    @Update("Update user set name = #{name}, identityNum = #{identityNum}," +
+            " phone = #{phone}, email = #{email} where userName = #{userName}")
+    public int updateUser(String userName,String name,String identityNum,String phone,String email);
 }
