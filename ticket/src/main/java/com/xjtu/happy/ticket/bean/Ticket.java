@@ -220,7 +220,7 @@ public class Ticket {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date starttime1=df.parse(starttime);
         Long sT=starttime1.getTime();
-        Long nowtime=System.currentTimeMillis();
+        Long nowtime=System.currentTimeMillis()+60*60*1000;
         if (nowtime>sT){
             //时间逾期，不可改票，不可退票
             return 0;
