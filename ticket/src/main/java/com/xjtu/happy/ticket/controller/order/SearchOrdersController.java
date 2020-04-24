@@ -39,9 +39,11 @@ public class SearchOrdersController {
     }
     //转跳到支付界面
     @RequestMapping("/gotopay")
-    public String gotopay(HttpServletRequest request,Model model,String orderno,HttpSession session){
+    public String gotopay(HttpServletRequest request,Model model,String orderno,HttpSession session,int orderid,String trainno){
         session.setAttribute("orderno",orderno);
         User user = Sorder.sUser(orderno);
+        model.addAttribute("orderid",orderid);
+        model.addAttribute("seatTypeNo",trainno);
         model.addAttribute("ticketType","成人票");
         model.addAttribute("name",user.getName());
         model.addAttribute("identityType","居民身份证");

@@ -62,7 +62,7 @@
                         <td name="state" class="tcel text-center" th:text="${tk.getOrderStatus()=='paid'?'已支付':'未支付'}"></td>
                         <td>
                             <a class="btn btn-primary" th:if="${tk.getOrderStatus()=='paid'}" style="width: 100%" th:href="@{/searchOrderTicket(orderno=${tk.getOrderNo()})}">查看详情</a></a>
-                            <a class="btn btn-primary" th:if="${tk.getOrderStatus()=='unpaid'}" style="width: 100%" th:href="@{/gotopay(orderno=${tk.getOrderNo()})}">去支付</a></a>
+                            <a class="btn btn-primary" th:if="${tk.getOrderStatus()=='unpaid'}" style="width: 100%" th:href="@{/gotopay(orderno=${tk.getOrderNo()},orderid=${tk.getOrderId()},trainno=${tk.getTrainNum()})}">去支付</a></a>
                         </td>
                     </tr>
                     </tbody>
