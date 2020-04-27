@@ -69,7 +69,7 @@ public class PayController {
 
         if(orderService.InsertTicketAndChangeOrder(ticket)) {
             model.addAttribute("msg","支付成功");
-            return "redirect:/search";
+            return "redirect:/orders";
         }
         else
         {
